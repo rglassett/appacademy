@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Awesome Website</title>
+    <script src="./jquery-1.11.1.js"></script>
+    <script src="./tabs.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.17.2/build/cssreset/cssreset-min.css">
+    <link href="./tabs.css" rel="stylesheet" type="text/css">
+  </head>
+
+  <script>
+    $(function() {
+      tabs = $('.tabs').tabs();
+    })
+  </script>
+  <body>
+    <ul class='tabs' data-content-tabs="#content-tabs">
+      <li><a href="#goldens" class="active">Goldens</a></li>
+      <li><a href="#huskies">Huskies</a></li>
+      <li><a href="#shibes">Shibes</a></li>
+    </ul>
+    <div id="content-tabs">
+      <div class="tab-pane active" id="goldens">
+        <p>Golden Retrievers: so good at basketball!</p>
+      </div>
+      <div class="tab-pane" id="huskies">
+        <p>Huskies: dressed warm for the winter.</p>
+      </div>
+      <div class="tab-pane" id="shibes">
+        <p>Shiba inu: Very wow, much cute</p>
+      </div>
+    </div>
+  </body>
+</html>

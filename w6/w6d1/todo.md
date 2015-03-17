@@ -1,0 +1,1 @@
+* Ask TA about obj['obj'] vs obj.pos. Why is the first syntax throwing errors?

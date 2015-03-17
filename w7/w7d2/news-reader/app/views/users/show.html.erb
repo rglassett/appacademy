@@ -1,0 +1,10 @@
+<h1>Your followed feeds</h1>
+
+<ul>
+<% @user.liked_feeds.each do |feed| %>
+  <li><a href="http://localhost:3000/#/feeds/<%= feed.id %>"><%= feed.title %></a>
+  <%= button_to("Unfollow", api_favorite_feed_url(feed), method: :delete) %>
+  
+  </li>
+<% end %>
+</ul>

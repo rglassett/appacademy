@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>astral.ly</title>
+    <%= stylesheet_link_tag 'application' %>
+    <%= javascript_include_tag 'application' %>
+    <%= csrf_meta_tags %>
+  </head>
+  
+  <%= render "shared/sign_in_modal" %>
+  <%= render "shared/sign_up_modal" %>
+  
+  <body data-spy="scroll" data-target=".navbar-spy">
+    <%= render "shared/nav_bar" %>  
+    
+    <% if flash[:errors] %>
+    <h3>Please fix the following errors:</h3>
+    <ul class="alert alert-warning" style="width: 40%">
+      <% flash[:errors].each do |error| %>
+      <li><%= error %></li>
+      <% end %>
+    </ul>
+    <% end %>
+    
+    <% if flash[:alerts] %>
+    <ul class="alert alert-success" style="width: 40%">
+      <% flash[:alerts].each do |alert| %>
+      <li><%= alert %></li>
+      <% end %>
+    </ul>
+    <% end %>
+
+    <div class="container-fluid">
+      <%= yield %>      
+    </div>
+    
+  </body>
+</html>

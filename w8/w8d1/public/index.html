@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/javascripts/chat_ui.js"></script>
+    <script src="/javascripts/chat.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css">
+  </head>
+  <body>
+    <div class="container container-fluid">
+      <div class="row full-height">
+        
+        <div class="msgs col-md-10 full-height">
+          <ul id="msgs"></ul>
+        </div>
+        
+        <div class="rooms col-md-2 full-height"></div>
+        
+      </div>
+    </div>
+      
+    <div class="footer">
+      <div id="form-div">
+        
+        <form>
+          <div class="form-group"></div>
+            <input class="form-control"
+                   type="text"
+                   id="msg"
+                   placeholder="Enter your message here!">
+            <button class="btn btn-default pull-right">Chat it up!</button>
+          </div>
+        </form>
+        
+      </div>
+    </div>
+      
+  </body>
+</html>

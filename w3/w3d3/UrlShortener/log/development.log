@@ -1,0 +1,1207 @@
+  [1m[36m (14.3ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (3.5ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20140820205555)
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20140820205555)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (24.3ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "email" character varying(255), "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.5ms)[0m  CREATE UNIQUE INDEX  "index_users_on_email" ON "users"  ("email")
+  [1m[36mSQL (1.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20140820205555"]]
+  [1m[35m (1.4ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateShortenedUrls (20140820210311)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (53.9ms)[0m  [1mCREATE TABLE "shortened_urls" ("id" serial primary key, "short_url" character varying(255) NOT NULL, "long_url" character varying(255) NOT NULL, "submitter_id" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.3ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateShortenedUrls (20140820210311)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (33.0ms)[0m  [1mCREATE TABLE "shortened_urls" ("id" serial primary key, "short_url" character varying(255) NOT NULL, "long_url" character varying(255) NOT NULL, "submitter_id" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (60.9ms)[0m  CREATE  INDEX  "index_shortened_urls_on_submitter_id" ON "shortened_urls"  ("submitter_id")
+  [1m[36m (1.8ms)[0m  [1mCREATE UNIQUE INDEX  "index_shortened_urls_on_short_url" ON "shortened_urls"  ("short_url")[0m
+  [1m[35mSQL (46.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20140820210311"]]
+  [1m[36m (1.1ms)[0m  [1mCOMMIT[0m
+Migrating to ChangeUsers (20140820210607)
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36m (0.7ms)[0m  [1mALTER TABLE "users" ADD COLUMN "email" character varying(255) NOT NULL[0m
+PG::DuplicateColumn: ERROR:  column "email" of relation "users" already exists
+: ALTER TABLE "users" ADD COLUMN "email" character varying(255) NOT NULL
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to ChangeUsers (20140820210607)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (1.5ms)[0m  [1mALTER TABLE "users" DROP "email"[0m
+  [1m[35m (0.7ms)[0m  ALTER TABLE "users" ADD COLUMN "email" character varying(255) NOT NULL
+  [1m[36m (1.6ms)[0m  [1mCREATE UNIQUE INDEX  "index_users_on_email" ON "users"  ("email")[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20140820210607"]]
+  [1m[36m (1.2ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36mShortenedURL Exists (1.5ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = '1G4HCTQlwXDfU-i85IS8BQ' LIMIT 1[0m
+  [1m[35m (0.5ms)[0m  BEGIN
+  [1m[36mUser Exists (1.1ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'chuck@norris.edu' LIMIT 1[0m
+  [1m[35mSQL (17.9ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-20 21:32:49.684058"], ["email", "chuck@norris.edu"], ["updated_at", "2014-08-20 21:32:49.684058"]]
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'ned@appacademy.io' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-20 21:32:58.080693"], ["email", "ned@appacademy.io"], ["updated_at", "2014-08-20 21:32:58.080693"]]
+  [1m[36m (0.9ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'ned@appacademy.io' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT  1 AS one FROM "users"  WHERE "users"."email" = 'rglassett@gmail.com' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-08-20 21:33:12.831130"], ["email", "rglassett@gmail.com"], ["updated_at", "2014-08-20 21:33:12.831130"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users"  WHERE "users"."email" = 'caslyn@gmail.com' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-08-20 21:33:23.309841"], ["email", "caslyn@gmail.com"], ["updated_at", "2014-08-20 21:33:23.309841"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT  1 AS one FROM "users"  WHERE "users"."email" = 'cj@appacademy.io' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-08-20 21:33:39.268167"], ["email", "cj@appacademy.io"], ["updated_at", "2014-08-20 21:33:39.268167"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36mUser Load (0.9ms)[0m  [1mSELECT  "users".* FROM "users"   ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mShortenedURL Exists (0.3ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'PITz2blnYpEtR7eEk-HNww' LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mShortenedURL Exists (0.4ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'PITz2blnYpEtR7eEk-HNww' LIMIT 1
+  [1m[36mShortenedURL Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://www.chucknorris.com' LIMIT 1[0m
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-08-20 21:35:14.777188"], ["long_url", "http://www.chucknorris.com"], ["short_url", "PITz2blnYpEtR7eEk-HNww"], ["submitter_id", 1], ["updated_at", "2014-08-20 21:35:14.777188"]]
+  [1m[36m (1.0ms)[0m  [1mCOMMIT[0m
+  [1m[35mShortenedURL Exists (0.7ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'efWVbYsi5QEwoMn_J7N1Og' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mShortenedURL Exists (0.4ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'efWVbYsi5QEwoMn_J7N1Og' LIMIT 1
+  [1m[36mShortenedURL Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://www.chucknorris.com' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1  [["id", 4]]
+  [1m[36mShortenedURL Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'dAxio7KZe-S1SoXo0q-yQQ' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mShortenedURL Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'dAxio7KZe-S1SoXo0q-yQQ' LIMIT 1[0m
+  [1m[35mShortenedURL Exists (0.3ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://caslyncole.com' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-08-20 21:38:21.835214"], ["long_url", "http://caslyncole.com"], ["short_url", "dAxio7KZe-S1SoXo0q-yQQ"], ["submitter_id", 4], ["updated_at", "2014-08-20 21:38:21.835214"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36mShortenedUrl Load (0.5ms)[0m  [1mSELECT "shortened_urls".* FROM "shortened_urls"  WHERE "shortened_urls"."submitter_id" = $1[0m  [["submitter_id", 4]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateVisit (20140820214349)
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateVisit (20140820214349)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (21.3ms)[0m  [1mCREATE TABLE "visits" ("id" serial primary key, "visitor" character varying(255) NOT NULL, "visited_url" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.7ms)[0m  CREATE  INDEX  "index_visits_on_visitor" ON "visits"  ("visitor")
+  [1m[36m (1.2ms)[0m  [1mCREATE  INDEX  "index_visits_on_visited_url" ON "visits"  ("visited_url")[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20140820214349"]]
+  [1m[36m (1.1ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.3ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to ChangeVisit (20140820215825)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (1.4ms)[0m  [1mALTER TABLE "visits" DROP "visitor"[0m
+  [1m[35m (0.5ms)[0m  ALTER TABLE "visits" DROP "visited_url"
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "visits" ADD COLUMN "visitor_id" integer NOT NULL[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "visits" ADD COLUMN "url_id" integer NOT NULL
+  [1m[36m (1.8ms)[0m  [1mCREATE  INDEX  "index_visits_on_visitor_id" ON "visits"  ("visitor_id")[0m
+  [1m[35m (14.5ms)[0m  CREATE  INDEX  "index_visits_on_url_id" ON "visits"  ("url_id")
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20140820215825"]]
+  [1m[35m (1.6ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mVisit Load (1.2ms)[0m  [1mSELECT "visits".* FROM "visits"  WHERE "visits"."url_id" = 1[0m
+  [1m[35mVisit Load (0.5ms)[0m  SELECT "visits".* FROM "visits"
+  [1m[36mUser Load (1.0ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35mShortenedUrl Load (0.8ms)[0m  SELECT "shortened_urls".* FROM "shortened_urls"
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (1.4ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'rglassett@gmail.com' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT  1 AS one FROM "users"  WHERE "users"."email" = 'caslyn@gmail.com' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'ned@appacademy.io' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users"  WHERE "users"."email" = 'cj@appacademy.io' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'chuck@norris.edu' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mUser Load (0.8ms)[0m  [1mSELECT  "users".* FROM "users"   ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mShortenedUrl Exists (0.7ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'dGXluI9u8soXx5ePf6g-rA' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mShortenedUrl Exists (0.5ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'dGXluI9u8soXx5ePf6g-rA' LIMIT 1
+  [1m[36mShortenedUrl Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://ryanglassett.io' LIMIT 1[0m
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-08-20 22:36:50.975261"], ["long_url", "http://ryanglassett.io"], ["short_url", "dGXluI9u8soXx5ePf6g-rA"], ["submitter_id", 1], ["updated_at", "2014-08-20 22:36:50.975261"]]
+  [1m[36m (0.9ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users"
+  [1m[36mShortenedUrl Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'vz7TpoQWVZRczHw5V3gNLQ' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mShortenedUrl Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'vz7TpoQWVZRczHw5V3gNLQ' LIMIT 1[0m
+  [1m[35mShortenedUrl Exists (0.3ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://caslyn.io' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-08-20 22:36:50.988110"], ["long_url", "http://caslyn.io"], ["short_url", "vz7TpoQWVZRczHw5V3gNLQ"], ["submitter_id", 2], ["updated_at", "2014-08-20 22:36:50.988110"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-20 22:36:51.001335"], ["updated_at", "2014-08-20 22:36:51.001335"], ["url_id", 1], ["visitor_id", 1]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-20 22:36:51.004914"], ["updated_at", "2014-08-20 22:36:51.004914"], ["url_id", 1], ["visitor_id", 2]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-20 22:36:51.006899"], ["updated_at", "2014-08-20 22:36:51.006899"], ["url_id", 2], ["visitor_id", 5]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-20 22:36:51.008685"], ["updated_at", "2014-08-20 22:36:51.008685"], ["url_id", 1], ["visitor_id", 3]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-20 22:36:51.010458"], ["updated_at", "2014-08-20 22:36:51.010458"], ["url_id", 2], ["visitor_id", 1]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-20 22:36:51.012110"], ["updated_at", "2014-08-20 22:36:51.012110"], ["url_id", 1], ["visitor_id", 4]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-20 22:36:51.014028"], ["updated_at", "2014-08-20 22:36:51.014028"], ["url_id", 2], ["visitor_id", 1]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-20 22:36:51.015822"], ["updated_at", "2014-08-20 22:36:51.015822"], ["url_id", 2], ["visitor_id", 5]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-20 22:36:51.017564"], ["updated_at", "2014-08-20 22:36:51.017564"], ["url_id", 2], ["visitor_id", 2]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[36mVisit Load (0.8ms)[0m  [1mSELECT "visits".* FROM "visits"[0m
+  [1m[35mVisit Load (0.7ms)[0m  SELECT "visits".* FROM "visits"  WHERE "visits"."visitor_id" = 1
+  [1m[36mShortenedUrl Load (0.9ms)[0m  [1mSELECT "shortened_urls".* FROM "shortened_urls"[0m
+  [1m[35mShortenedUrl Load (0.9ms)[0m  SELECT  "shortened_urls".* FROM "shortened_urls"   ORDER BY "shortened_urls"."id" ASC LIMIT 1
+  [1m[36mVisit Load (0.6ms)[0m  [1mSELECT "visits".* FROM "visits"  WHERE "visits"."url_id" = $1[0m  [["url_id", 1]]
+  [1m[35mShortenedUrl Load (0.4ms)[0m  SELECT  "shortened_urls".* FROM "shortened_urls"   ORDER BY "shortened_urls"."id" ASC LIMIT 1
+  [1m[36mVisit Load (0.4ms)[0m  [1mSELECT "visits".* FROM "visits"  WHERE "visits"."url_id" = $1[0m  [["url_id", 1]]
+  [1m[35mShortenedUrl Load (0.6ms)[0m  SELECT  "shortened_urls".* FROM "shortened_urls"   ORDER BY "shortened_urls"."id" ASC LIMIT 1
+  [1m[36mVisit Load (0.4ms)[0m  [1mSELECT "visits".* FROM "visits"  WHERE "visits"."url_id" = $1[0m  [["url_id", 1]]
+  [1m[35mShortenedUrl Load (0.4ms)[0m  SELECT  "shortened_urls".* FROM "shortened_urls"   ORDER BY "shortened_urls"."id" ASC LIMIT 1
+  [1m[36m (0.5ms)[0m  [1mSELECT DISTINCT COUNT(DISTINCT "visits"."id") FROM "visits"  WHERE "visits"."url_id" = $1 AND (created_at < '2014-08-20 22:36:28.702883')[0m  [["url_id", 1]]
+  [1m[35mShortenedUrl Load (0.4ms)[0m  SELECT  "shortened_urls".* FROM "shortened_urls"   ORDER BY "shortened_urls"."id" ASC LIMIT 1
+  [1m[36m (0.5ms)[0m  [1mSELECT DISTINCT COUNT(DISTINCT "visits"."id") FROM "visits"  WHERE "visits"."url_id" = $1 AND (created_at > '2014-08-20 22:36:50.294151')[0m  [["url_id", 1]]
+  [1m[35mVisit Load (0.5ms)[0m  SELECT "visits".* FROM "visits"
+  [1m[36mShortenedUrl Load (0.6ms)[0m  [1mSELECT  "shortened_urls".* FROM "shortened_urls"   ORDER BY "shortened_urls"."id" ASC LIMIT 1[0m
+  [1m[35m (0.5ms)[0m  SELECT DISTINCT COUNT(DISTINCT "visits"."id") FROM "visits"  WHERE "visits"."url_id" = $1 AND (created_at > '2014-08-20 22:37:19.070373')  [["url_id", 1]]
+  [1m[36mVisit Load (0.5ms)[0m  [1mSELECT "visits".* FROM "visits"[0m
+  [1m[35mShortenedUrl Load (0.5ms)[0m  SELECT  "shortened_urls".* FROM "shortened_urls"   ORDER BY "shortened_urls"."id" ASC LIMIT 1
+  [1m[36m (0.4ms)[0m  [1mSELECT DISTINCT COUNT(DISTINCT "visits"."id") FROM "visits"  WHERE "visits"."url_id" = $1 AND (created_at < '2014-08-20 22:32:33.898316')[0m  [["url_id", 1]]
+  [1m[35mShortenedUrl Load (0.4ms)[0m  SELECT  "shortened_urls".* FROM "shortened_urls"   ORDER BY "shortened_urls"."id" ASC LIMIT 1
+  [1m[36m (0.4ms)[0m  [1mSELECT DISTINCT COUNT(DISTINCT "visits"."id") FROM "visits"  WHERE "visits"."url_id" = $1 AND (created_at > '2014-08-20 22:33:00.701152')[0m  [["url_id", 1]]
+  [1m[36mUser Load (1.4ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."email" = 'rglassett@gmail.com' LIMIT 1[0m
+  [1m[35mShortenedUrl Load (0.6ms)[0m  SELECT  "shortened_urls".* FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://www.reddit.com' LIMIT 1
+  [1m[36mUser Load (1.1ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."email" = 'rglassett@gmail.com' LIMIT 1[0m
+  [1m[35mShortenedUrl Load (0.7ms)[0m  SELECT  "shortened_urls".* FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://www.reddit.com' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mShortenedUrl Exists (0.6ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" IS NULL LIMIT 1
+  [1m[36mShortenedUrl Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://www.reddit.com' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mUser Load (1.2ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."email" = 'rglassett@gmail.com' LIMIT 1[0m
+  [1m[35mShortenedUrl Load (0.6ms)[0m  SELECT  "shortened_urls".* FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://www.reddit.com' LIMIT 1
+  [1m[36mShortenedUrl Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'fTEgRXSzpaE84tl7IWXs2w' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mShortenedUrl Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'fTEgRXSzpaE84tl7IWXs2w' LIMIT 1[0m
+  [1m[35mShortenedUrl Exists (0.4ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://www.reddit.com' LIMIT 1
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-08-20 23:25:39.438768"], ["long_url", "http://www.reddit.com"], ["short_url", "fTEgRXSzpaE84tl7IWXs2w"], ["submitter_id", 3], ["updated_at", "2014-08-20 23:25:39.438768"]]
+  [1m[35m (0.7ms)[0m  COMMIT
+  [1m[36mShortenedUrl Load (1.3ms)[0m  [1mSELECT  "shortened_urls".* FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'fTEgRXSzpaE84tl7IWXs2w' LIMIT 1[0m
+  [1m[36mUser Load (1.1ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."email" = 'barack_obama@whitehouse.gov' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'barack_obama@whitehouse.gov' LIMIT 1[0m
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-20 23:26:21.599559"], ["email", "barack_obama@whitehouse.gov"], ["updated_at", "2014-08-20 23:26:21.599559"]]
+  [1m[36m (0.9ms)[0m  [1mCOMMIT[0m
+  [1m[35mShortenedUrl Load (0.7ms)[0m  SELECT  "shortened_urls".* FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'fTEgRXSzpaE84tl7IWXs2w' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-20 23:26:45.964129"], ["updated_at", "2014-08-20 23:26:45.964129"], ["url_id", 5], ["visitor_id", 6]]
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+  [1m[36mUser Load (1.1ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."email" = 'rglassett@gmail.com' LIMIT 1[0m
+  [1m[35mShortenedUrl Load (0.6ms)[0m  SELECT  "shortened_urls".* FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'fTEgRXSzpaE84tl7IWXs2w' LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-20 23:28:16.516035"], ["updated_at", "2014-08-20 23:28:16.516035"], ["url_id", 5], ["visitor_id", 3]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[36mVisit Load (0.8ms)[0m  [1mSELECT "visits".* FROM "visits"[0m
+  [1m[35mUser Load (1.2ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1  [["id", 3]]
+  [1m[36mShortenedUrl Load (0.6ms)[0m  [1mSELECT  "shortened_urls".* FROM "shortened_urls"  WHERE "shortened_urls"."id" = $1 LIMIT 1[0m  [["id", 5]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateTagging (20140820234040)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (4.7ms)[0m  [1mCREATE TABLE "taggings" ("id" serial primary key, "url_id" integer, "tag_topic_id" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateTagging (20140820234040)
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36m (4.1ms)[0m  [1mCREATE TABLE "taggings" ("id" serial primary key, "url_id" integer NOT NULL, "tag_topic_id" integer NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.1ms)[0m  CREATE  INDEX  "index_taggings_on_url_id" ON "taggings"  ("url_id")
+  [1m[36m (1.0ms)[0m  [1mCREATE  INDEX  "index_taggings_on_tag_topic_id" ON "taggings"  ("tag_topic_id")[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20140820234040"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Migrating to CreateTagTopic (20140820234054)
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateTagTopic (20140820234054)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (5.0ms)[0m  [1mCREATE TABLE "tag_topics" ("id" serial primary key, "tag_topic" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (2.9ms)[0m  CREATE UNIQUE INDEX  "index_tag_topics_on_tag_topic" ON "tag_topics"  ("tag_topic")
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20140820234054"]]
+  [1m[35m (1.2ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to ChangeTagging (20140820235609)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (2.4ms)[0m  [1mCREATE UNIQUE INDEX  "index_taggings_on_url_id_and_tag_topic_id" ON "taggings"  ("url_id", "tag_topic_id")[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20140820235609"]]
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.3ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36mUser Exists (1.9ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'rglassett@gmail.com' LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT  1 AS one FROM "users"  WHERE "users"."email" = 'caslyn@gmail.com' LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'ned@appacademy.io' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.7ms)[0m  SELECT  1 AS one FROM "users"  WHERE "users"."email" = 'cj@appacademy.io' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'chuck@norris.edu' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mUser Load (0.8ms)[0m  [1mSELECT  "users".* FROM "users"   ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mShortenedUrl Exists (0.5ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'JxpgmYkVf907NcxL5rlB3g' LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mShortenedUrl Exists (0.7ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'JxpgmYkVf907NcxL5rlB3g' LIMIT 1
+  [1m[36mShortenedUrl Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://ryanglassett.io' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (166.6ms)[0m  [1mDROP DATABASE IF EXISTS "url_shortener_development"[0m
+  [1m[35m (326.8ms)[0m  CREATE DATABASE "url_shortener_development" ENCODING = 'utf8'
+  [1m[36mSQL (21.2ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (9.8ms)[0m  CREATE TABLE "shortened_urls" ("id" serial primary key, "short_url" character varying(255) NOT NULL, "long_url" character varying(255) NOT NULL, "submitter_id" integer, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (1.8ms)[0m  [1mCREATE UNIQUE INDEX  "index_shortened_urls_on_short_url" ON "shortened_urls" USING btree ("short_url")[0m
+  [1m[35m (1.3ms)[0m  CREATE  INDEX  "index_shortened_urls_on_submitter_id" ON "shortened_urls" USING btree ("submitter_id")
+  [1m[36m (3.4ms)[0m  [1mCREATE TABLE "tag_topics" ("id" serial primary key, "tag_topic" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.5ms)[0m  CREATE UNIQUE INDEX  "index_tag_topics_on_tag_topic" ON "tag_topics" USING btree ("tag_topic")
+  [1m[36m (3.4ms)[0m  [1mCREATE TABLE "taggings" ("id" serial primary key, "url_id" integer NOT NULL, "tag_topic_id" integer NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.5ms)[0m  CREATE  INDEX  "index_taggings_on_tag_topic_id" ON "taggings" USING btree ("tag_topic_id")
+  [1m[36m (1.6ms)[0m  [1mCREATE UNIQUE INDEX  "index_taggings_on_url_id_and_tag_topic_id" ON "taggings" USING btree ("url_id", "tag_topic_id")[0m
+  [1m[35m (1.6ms)[0m  CREATE  INDEX  "index_taggings_on_url_id" ON "taggings" USING btree ("url_id")
+  [1m[36m (4.5ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "created_at" timestamp, "updated_at" timestamp, "email" character varying(255) NOT NULL) [0m
+  [1m[35m (2.2ms)[0m  CREATE UNIQUE INDEX  "index_users_on_email" ON "users" USING btree ("email")
+  [1m[36m (3.2ms)[0m  [1mCREATE TABLE "visits" ("id" serial primary key, "created_at" timestamp, "updated_at" timestamp, "visitor_id" integer NOT NULL, "url_id" integer NOT NULL) [0m
+  [1m[35m (1.2ms)[0m  CREATE  INDEX  "index_visits_on_url_id" ON "visits" USING btree ("url_id")
+  [1m[36m (1.4ms)[0m  [1mCREATE  INDEX  "index_visits_on_visitor_id" ON "visits" USING btree ("visitor_id")[0m
+  [1m[35m (27.8ms)[0m  CREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) 
+  [1m[36m (1.9ms)[0m  [1mCREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")[0m
+  [1m[35m (0.6ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140820235609')[0m
+  [1m[35m (0.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140820205555')
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140820210311')[0m
+  [1m[35m (0.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140820210607')
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140820214349')[0m
+  [1m[35m (0.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140820215825')
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140820234040')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140820234054')
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (1.0ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'rglassett@gmail.com' LIMIT 1[0m
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:04:59.794603"], ["email", "rglassett@gmail.com"], ["updated_at", "2014-08-21 00:04:59.794603"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'caslyn@gmail.com' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:04:59.803153"], ["email", "caslyn@gmail.com"], ["updated_at", "2014-08-21 00:04:59.803153"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'ned@appacademy.io' LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:04:59.806471"], ["email", "ned@appacademy.io"], ["updated_at", "2014-08-21 00:04:59.806471"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'cj@appacademy.io' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:04:59.809852"], ["email", "cj@appacademy.io"], ["updated_at", "2014-08-21 00:04:59.809852"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'chuck@norris.edu' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:04:59.813292"], ["email", "chuck@norris.edu"], ["updated_at", "2014-08-21 00:04:59.813292"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (1.2ms)[0m  SELECT  "users".* FROM "users"   ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mShortenedUrl Exists (0.8ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'fnQnnvBDpyGryZzUply2ng' LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36mShortenedUrl Exists (0.7ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'fnQnnvBDpyGryZzUply2ng' LIMIT 1[0m
+  [1m[35mShortenedUrl Exists (0.5ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://ryanglassett.io' LIMIT 1
+  [1m[36mSQL (1.1ms)[0m  [1mINSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-08-21 00:04:59.868337"], ["long_url", "http://ryanglassett.io"], ["short_url", "fnQnnvBDpyGryZzUply2ng"], ["submitter_id", 1], ["updated_at", "2014-08-21 00:04:59.868337"]]
+  [1m[35m (0.9ms)[0m  COMMIT
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35mShortenedUrl Exists (0.5ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'iuT88Nf7MXQRbrx4cdimhg' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mShortenedUrl Exists (0.4ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'iuT88Nf7MXQRbrx4cdimhg' LIMIT 1
+  [1m[36mShortenedUrl Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://caslyn.io' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-08-21 00:04:59.876202"], ["long_url", "http://caslyn.io"], ["short_url", "iuT88Nf7MXQRbrx4cdimhg"], ["submitter_id", 2], ["updated_at", "2014-08-21 00:04:59.876202"]]
+  [1m[36m (0.9ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users"
+  [1m[36mShortenedUrl Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'SIR6zR6yy3rka1M83iHRuw' LIMIT 1[0m
+  [1m[36m (114.6ms)[0m  [1mDROP DATABASE IF EXISTS "url_shortener_development"[0m
+  [1m[35m (284.8ms)[0m  CREATE DATABASE "url_shortener_development" ENCODING = 'utf8'
+  [1m[36mSQL (0.4ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (7.4ms)[0m  CREATE TABLE "shortened_urls" ("id" serial primary key, "short_url" character varying(255) NOT NULL, "long_url" character varying(255) NOT NULL, "submitter_id" integer, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (1.9ms)[0m  [1mCREATE UNIQUE INDEX  "index_shortened_urls_on_short_url" ON "shortened_urls" USING btree ("short_url")[0m
+  [1m[35m (1.4ms)[0m  CREATE  INDEX  "index_shortened_urls_on_submitter_id" ON "shortened_urls" USING btree ("submitter_id")
+  [1m[36m (3.3ms)[0m  [1mCREATE TABLE "tag_topics" ("id" serial primary key, "tag_topic" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (2.0ms)[0m  CREATE UNIQUE INDEX  "index_tag_topics_on_tag_topic" ON "tag_topics" USING btree ("tag_topic")
+  [1m[36m (3.6ms)[0m  [1mCREATE TABLE "taggings" ("id" serial primary key, "url_id" integer NOT NULL, "tag_topic_id" integer NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.3ms)[0m  CREATE  INDEX  "index_taggings_on_tag_topic_id" ON "taggings" USING btree ("tag_topic_id")
+  [1m[36m (1.4ms)[0m  [1mCREATE UNIQUE INDEX  "index_taggings_on_url_id_and_tag_topic_id" ON "taggings" USING btree ("url_id", "tag_topic_id")[0m
+  [1m[35m (1.4ms)[0m  CREATE  INDEX  "index_taggings_on_url_id" ON "taggings" USING btree ("url_id")
+  [1m[36m (3.0ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "created_at" timestamp, "updated_at" timestamp, "email" character varying(255) NOT NULL) [0m
+  [1m[35m (1.4ms)[0m  CREATE UNIQUE INDEX  "index_users_on_email" ON "users" USING btree ("email")
+  [1m[36m (3.2ms)[0m  [1mCREATE TABLE "visits" ("id" serial primary key, "created_at" timestamp, "updated_at" timestamp, "visitor_id" integer NOT NULL, "url_id" integer NOT NULL) [0m
+  [1m[35m (1.2ms)[0m  CREATE  INDEX  "index_visits_on_url_id" ON "visits" USING btree ("url_id")
+  [1m[36m (1.4ms)[0m  [1mCREATE  INDEX  "index_visits_on_visitor_id" ON "visits" USING btree ("visitor_id")[0m
+  [1m[35m (1.5ms)[0m  CREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) 
+  [1m[36m (1.4ms)[0m  [1mCREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")[0m
+  [1m[35m (0.4ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140820235609')[0m
+  [1m[35m (0.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140820205555')
+  [1m[36m (0.9ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140820210311')[0m
+  [1m[35m (0.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140820210607')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140820214349')[0m
+  [1m[35m (0.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140820215825')
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140820234040')[0m
+  [1m[35m (0.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140820234054')
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (1.2ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'rglassett@gmail.com' LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:05:45.270664"], ["email", "rglassett@gmail.com"], ["updated_at", "2014-08-21 00:05:45.270664"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'caslyn@gmail.com' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:05:45.281311"], ["email", "caslyn@gmail.com"], ["updated_at", "2014-08-21 00:05:45.281311"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'ned@appacademy.io' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:05:45.284574"], ["email", "ned@appacademy.io"], ["updated_at", "2014-08-21 00:05:45.284574"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'cj@appacademy.io' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:05:45.287217"], ["email", "cj@appacademy.io"], ["updated_at", "2014-08-21 00:05:45.287217"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'chuck@norris.edu' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:05:45.289939"], ["email", "chuck@norris.edu"], ["updated_at", "2014-08-21 00:05:45.289939"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (1.1ms)[0m  SELECT  "users".* FROM "users"   ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mShortenedUrl Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = '2dGtvqQhPQe2nWmAdGtccw' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mShortenedUrl Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = '2dGtvqQhPQe2nWmAdGtccw' LIMIT 1[0m
+  [1m[35mShortenedUrl Exists (0.3ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://ryanglassett.io' LIMIT 1
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-08-21 00:05:45.343798"], ["long_url", "http://ryanglassett.io"], ["short_url", "2dGtvqQhPQe2nWmAdGtccw"], ["submitter_id", 1], ["updated_at", "2014-08-21 00:05:45.343798"]]
+  [1m[35m (0.7ms)[0m  COMMIT
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35mShortenedUrl Exists (0.5ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = '65nPk-StRcHXtapa3UdV-Q' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mShortenedUrl Exists (0.4ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = '65nPk-StRcHXtapa3UdV-Q' LIMIT 1
+  [1m[36mShortenedUrl Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://caslyn.io' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-08-21 00:05:45.350947"], ["long_url", "http://caslyn.io"], ["short_url", "65nPk-StRcHXtapa3UdV-Q"], ["submitter_id", 2], ["updated_at", "2014-08-21 00:05:45.350947"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users"
+  [1m[36mShortenedUrl Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'bC9yAEc0LxS1CUOkdjcOUg' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mShortenedUrl Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'bC9yAEc0LxS1CUOkdjcOUg' LIMIT 1[0m
+  [1m[35mShortenedUrl Exists (0.3ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://chucknorris.io' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-08-21 00:05:45.356326"], ["long_url", "http://chucknorris.io"], ["short_url", "bC9yAEc0LxS1CUOkdjcOUg"], ["submitter_id", 3], ["updated_at", "2014-08-21 00:05:45.356326"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35mShortenedUrl Exists (0.4ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'gyDp28XM-H9I0pY0p3HlCQ' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mShortenedUrl Exists (0.3ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'gyDp28XM-H9I0pY0p3HlCQ' LIMIT 1
+  [1m[36mShortenedUrl Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://cjsloveshack.net' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-08-21 00:05:45.361474"], ["long_url", "http://cjsloveshack.net"], ["short_url", "gyDp28XM-H9I0pY0p3HlCQ"], ["submitter_id", 5], ["updated_at", "2014-08-21 00:05:45.361474"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (1.4ms)[0m  [1mINSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-21 00:05:45.372002"], ["updated_at", "2014-08-21 00:05:45.372002"], ["url_id", 1], ["visitor_id", 1]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-21 00:05:45.376027"], ["updated_at", "2014-08-21 00:05:45.376027"], ["url_id", 1], ["visitor_id", 2]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-21 00:05:45.378192"], ["updated_at", "2014-08-21 00:05:45.378192"], ["url_id", 2], ["visitor_id", 5]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-21 00:05:45.380302"], ["updated_at", "2014-08-21 00:05:45.380302"], ["url_id", 1], ["visitor_id", 3]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-21 00:05:45.382135"], ["updated_at", "2014-08-21 00:05:45.382135"], ["url_id", 2], ["visitor_id", 1]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-21 00:05:45.383944"], ["updated_at", "2014-08-21 00:05:45.383944"], ["url_id", 1], ["visitor_id", 4]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-21 00:05:45.385782"], ["updated_at", "2014-08-21 00:05:45.385782"], ["url_id", 2], ["visitor_id", 1]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-21 00:05:45.387545"], ["updated_at", "2014-08-21 00:05:45.387545"], ["url_id", 2], ["visitor_id", 5]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-21 00:05:45.389248"], ["updated_at", "2014-08-21 00:05:45.389248"], ["url_id", 2], ["visitor_id", 2]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mTagTopic Exists (1.0ms)[0m  SELECT  1 AS one FROM "tag_topics"  WHERE "tag_topics"."tag_topic" = 'Sports' LIMIT 1
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "tag_topics" ("created_at", "tag_topic", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-08-21 00:05:45.404194"], ["tag_topic", "Sports"], ["updated_at", "2014-08-21 00:05:45.404194"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mTagTopic Exists (0.5ms)[0m  SELECT  1 AS one FROM "tag_topics"  WHERE "tag_topics"."tag_topic" = 'News' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "tag_topics" ("created_at", "tag_topic", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-08-21 00:05:45.408736"], ["tag_topic", "News"], ["updated_at", "2014-08-21 00:05:45.408736"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mTagTopic Exists (0.3ms)[0m  SELECT  1 AS one FROM "tag_topics"  WHERE "tag_topics"."tag_topic" = 'Entertainment' LIMIT 1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "tag_topics" ("created_at", "tag_topic", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-08-21 00:05:45.411849"], ["tag_topic", "Entertainment"], ["updated_at", "2014-08-21 00:05:45.411849"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mTagTopic Exists (0.3ms)[0m  SELECT  1 AS one FROM "tag_topics"  WHERE "tag_topics"."tag_topic" = 'Weather' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tag_topics" ("created_at", "tag_topic", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-08-21 00:05:45.414848"], ["tag_topic", "Weather"], ["updated_at", "2014-08-21 00:05:45.414848"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mTagTopic Exists (0.4ms)[0m  SELECT  1 AS one FROM "tag_topics"  WHERE "tag_topics"."tag_topic" = 'Foreign Policy' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tag_topics" ("created_at", "tag_topic", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-08-21 00:05:45.417964"], ["tag_topic", "Foreign Policy"], ["updated_at", "2014-08-21 00:05:45.417964"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mTagTopic Exists (0.4ms)[0m  SELECT  1 AS one FROM "tag_topics"  WHERE "tag_topics"."tag_topic" = 'Time Wasting' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tag_topics" ("created_at", "tag_topic", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-08-21 00:05:45.421016"], ["tag_topic", "Time Wasting"], ["updated_at", "2014-08-21 00:05:45.421016"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mTagTopic Exists (0.3ms)[0m  SELECT  1 AS one FROM "tag_topics"  WHERE "tag_topics"."tag_topic" = 'Chuck Norris' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tag_topics" ("created_at", "tag_topic", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-08-21 00:05:45.423776"], ["tag_topic", "Chuck Norris"], ["updated_at", "2014-08-21 00:05:45.423776"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (115.6ms)[0m  [1mDROP DATABASE IF EXISTS "url_shortener_development"[0m
+  [1m[35m (239.1ms)[0m  CREATE DATABASE "url_shortener_development" ENCODING = 'utf8'
+  [1m[36mSQL (0.4ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (7.3ms)[0m  CREATE TABLE "shortened_urls" ("id" serial primary key, "short_url" character varying(255) NOT NULL, "long_url" character varying(255) NOT NULL, "submitter_id" integer, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (1.9ms)[0m  [1mCREATE UNIQUE INDEX  "index_shortened_urls_on_short_url" ON "shortened_urls" USING btree ("short_url")[0m
+  [1m[35m (1.3ms)[0m  CREATE  INDEX  "index_shortened_urls_on_submitter_id" ON "shortened_urls" USING btree ("submitter_id")
+  [1m[36m (3.6ms)[0m  [1mCREATE TABLE "tag_topics" ("id" serial primary key, "tag_topic" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.7ms)[0m  CREATE UNIQUE INDEX  "index_tag_topics_on_tag_topic" ON "tag_topics" USING btree ("tag_topic")
+  [1m[36m (3.1ms)[0m  [1mCREATE TABLE "taggings" ("id" serial primary key, "url_id" integer NOT NULL, "tag_topic_id" integer NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.3ms)[0m  CREATE  INDEX  "index_taggings_on_tag_topic_id" ON "taggings" USING btree ("tag_topic_id")
+  [1m[36m (1.5ms)[0m  [1mCREATE UNIQUE INDEX  "index_taggings_on_url_id_and_tag_topic_id" ON "taggings" USING btree ("url_id", "tag_topic_id")[0m
+  [1m[35m (1.5ms)[0m  CREATE  INDEX  "index_taggings_on_url_id" ON "taggings" USING btree ("url_id")
+  [1m[36m (3.1ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "created_at" timestamp, "updated_at" timestamp, "email" character varying(255) NOT NULL) [0m
+  [1m[35m (2.2ms)[0m  CREATE UNIQUE INDEX  "index_users_on_email" ON "users" USING btree ("email")
+  [1m[36m (4.5ms)[0m  [1mCREATE TABLE "visits" ("id" serial primary key, "created_at" timestamp, "updated_at" timestamp, "visitor_id" integer NOT NULL, "url_id" integer NOT NULL) [0m
+  [1m[35m (1.4ms)[0m  CREATE  INDEX  "index_visits_on_url_id" ON "visits" USING btree ("url_id")
+  [1m[36m (2.2ms)[0m  [1mCREATE  INDEX  "index_visits_on_visitor_id" ON "visits" USING btree ("visitor_id")[0m
+  [1m[35m (1.4ms)[0m  CREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) 
+  [1m[36m (1.5ms)[0m  [1mCREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")[0m
+  [1m[35m (0.5ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140820235609')[0m
+  [1m[35m (0.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140820205555')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140820210311')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140820210607')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140820214349')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140820215825')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140820234040')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140820234054')
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (1.1ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'rglassett@gmail.com' LIMIT 1[0m
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:07:12.709321"], ["email", "rglassett@gmail.com"], ["updated_at", "2014-08-21 00:07:12.709321"]]
+  [1m[36m (0.8ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'caslyn@gmail.com' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:07:12.718379"], ["email", "caslyn@gmail.com"], ["updated_at", "2014-08-21 00:07:12.718379"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'ned@appacademy.io' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:07:12.721582"], ["email", "ned@appacademy.io"], ["updated_at", "2014-08-21 00:07:12.721582"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'cj@appacademy.io' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:07:12.724652"], ["email", "cj@appacademy.io"], ["updated_at", "2014-08-21 00:07:12.724652"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'chuck@norris.edu' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:07:12.727464"], ["email", "chuck@norris.edu"], ["updated_at", "2014-08-21 00:07:12.727464"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (1.2ms)[0m  SELECT  "users".* FROM "users"   ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mShortenedUrl Exists (1.0ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'nlyJmWFDU0y0gihI2InRug' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mShortenedUrl Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'nlyJmWFDU0y0gihI2InRug' LIMIT 1[0m
+  [1m[35mShortenedUrl Exists (0.5ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://ryanglassett.io' LIMIT 1
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:12.783535"], ["long_url", "http://ryanglassett.io"], ["short_url", "nlyJmWFDU0y0gihI2InRug"], ["submitter_id", 1], ["updated_at", "2014-08-21 00:07:12.783535"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35mShortenedUrl Exists (0.5ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'aKTjU23jxUENfmx_RCO5og' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mShortenedUrl Exists (0.6ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'aKTjU23jxUENfmx_RCO5og' LIMIT 1
+  [1m[36mShortenedUrl Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://caslyn.io' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-08-21 00:07:12.791287"], ["long_url", "http://caslyn.io"], ["short_url", "aKTjU23jxUENfmx_RCO5og"], ["submitter_id", 2], ["updated_at", "2014-08-21 00:07:12.791287"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users"
+  [1m[36mShortenedUrl Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'w-m-c5o-kBvrDpoqIpP0cQ' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mShortenedUrl Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'w-m-c5o-kBvrDpoqIpP0cQ' LIMIT 1[0m
+  [1m[35mShortenedUrl Exists (0.3ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://chucknorris.io' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:12.796911"], ["long_url", "http://chucknorris.io"], ["short_url", "w-m-c5o-kBvrDpoqIpP0cQ"], ["submitter_id", 3], ["updated_at", "2014-08-21 00:07:12.796911"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35mShortenedUrl Exists (0.4ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'xQ0pwUI0mbHzFG4KVHW5Zg' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mShortenedUrl Exists (0.3ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'xQ0pwUI0mbHzFG4KVHW5Zg' LIMIT 1
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://cjsloveshack.net' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-08-21 00:07:12.801916"], ["long_url", "http://cjsloveshack.net"], ["short_url", "xQ0pwUI0mbHzFG4KVHW5Zg"], ["submitter_id", 5], ["updated_at", "2014-08-21 00:07:12.801916"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (1.4ms)[0m  [1mINSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:12.814639"], ["updated_at", "2014-08-21 00:07:12.814639"], ["url_id", 1], ["visitor_id", 1]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-21 00:07:12.818952"], ["updated_at", "2014-08-21 00:07:12.818952"], ["url_id", 1], ["visitor_id", 2]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:12.821186"], ["updated_at", "2014-08-21 00:07:12.821186"], ["url_id", 2], ["visitor_id", 5]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-21 00:07:12.823529"], ["updated_at", "2014-08-21 00:07:12.823529"], ["url_id", 1], ["visitor_id", 3]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:12.825794"], ["updated_at", "2014-08-21 00:07:12.825794"], ["url_id", 2], ["visitor_id", 1]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-21 00:07:12.827706"], ["updated_at", "2014-08-21 00:07:12.827706"], ["url_id", 1], ["visitor_id", 4]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:12.829553"], ["updated_at", "2014-08-21 00:07:12.829553"], ["url_id", 2], ["visitor_id", 1]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-21 00:07:12.831304"], ["updated_at", "2014-08-21 00:07:12.831304"], ["url_id", 2], ["visitor_id", 5]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:12.833363"], ["updated_at", "2014-08-21 00:07:12.833363"], ["url_id", 2], ["visitor_id", 2]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mTagTopic Exists (0.7ms)[0m  SELECT  1 AS one FROM "tag_topics"  WHERE "tag_topics"."tag_topic" = 'Sports' LIMIT 1
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "tag_topics" ("created_at", "tag_topic", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:12.846211"], ["tag_topic", "Sports"], ["updated_at", "2014-08-21 00:07:12.846211"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mTagTopic Exists (0.5ms)[0m  SELECT  1 AS one FROM "tag_topics"  WHERE "tag_topics"."tag_topic" = 'News' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tag_topics" ("created_at", "tag_topic", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:12.851156"], ["tag_topic", "News"], ["updated_at", "2014-08-21 00:07:12.851156"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mTagTopic Exists (0.4ms)[0m  SELECT  1 AS one FROM "tag_topics"  WHERE "tag_topics"."tag_topic" = 'Entertainment' LIMIT 1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "tag_topics" ("created_at", "tag_topic", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:12.854177"], ["tag_topic", "Entertainment"], ["updated_at", "2014-08-21 00:07:12.854177"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mTagTopic Exists (0.4ms)[0m  SELECT  1 AS one FROM "tag_topics"  WHERE "tag_topics"."tag_topic" = 'Weather' LIMIT 1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "tag_topics" ("created_at", "tag_topic", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:12.858045"], ["tag_topic", "Weather"], ["updated_at", "2014-08-21 00:07:12.858045"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mTagTopic Exists (0.3ms)[0m  SELECT  1 AS one FROM "tag_topics"  WHERE "tag_topics"."tag_topic" = 'Foreign Policy' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tag_topics" ("created_at", "tag_topic", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:12.861253"], ["tag_topic", "Foreign Policy"], ["updated_at", "2014-08-21 00:07:12.861253"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mTagTopic Exists (0.3ms)[0m  SELECT  1 AS one FROM "tag_topics"  WHERE "tag_topics"."tag_topic" = 'Time Wasting' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tag_topics" ("created_at", "tag_topic", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:12.863957"], ["tag_topic", "Time Wasting"], ["updated_at", "2014-08-21 00:07:12.863957"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mTagTopic Exists (0.3ms)[0m  SELECT  1 AS one FROM "tag_topics"  WHERE "tag_topics"."tag_topic" = 'Chuck Norris' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "tag_topics" ("created_at", "tag_topic", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:12.866559"], ["tag_topic", "Chuck Norris"], ["updated_at", "2014-08-21 00:07:12.866559"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.7ms)[0m  INSERT INTO "taggings" ("created_at", "tag_topic_id", "updated_at", "url_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-21 00:07:12.877037"], ["tag_topic_id", 7], ["updated_at", "2014-08-21 00:07:12.877037"], ["url_id", 3]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "taggings" ("created_at", "tag_topic_id", "updated_at", "url_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:12.881457"], ["tag_topic_id", 6], ["updated_at", "2014-08-21 00:07:12.881457"], ["url_id", 1]]
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "taggings" ("created_at", "tag_topic_id", "updated_at", "url_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-21 00:07:12.884192"], ["tag_topic_id", 2], ["updated_at", "2014-08-21 00:07:12.884192"], ["url_id", 3]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "taggings" ("created_at", "tag_topic_id", "updated_at", "url_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:12.886143"], ["tag_topic_id", 4], ["updated_at", "2014-08-21 00:07:12.886143"], ["url_id", 3]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "taggings" ("created_at", "tag_topic_id", "updated_at", "url_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-21 00:07:12.887977"], ["tag_topic_id", 7], ["updated_at", "2014-08-21 00:07:12.887977"], ["url_id", 3]]
+PG::UniqueViolation: ERROR:  duplicate key value violates unique constraint "index_taggings_on_url_id_and_tag_topic_id"
+DETAIL:  Key (url_id, tag_topic_id)=(3, 7) already exists.
+: INSERT INTO "taggings" ("created_at", "tag_topic_id", "updated_at", "url_id") VALUES ($1, $2, $3, $4) RETURNING "id"
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36m (115.3ms)[0m  [1mDROP DATABASE IF EXISTS "url_shortener_development"[0m
+  [1m[35m (298.9ms)[0m  CREATE DATABASE "url_shortener_development" ENCODING = 'utf8'
+  [1m[36mSQL (0.4ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (7.5ms)[0m  CREATE TABLE "shortened_urls" ("id" serial primary key, "short_url" character varying(255) NOT NULL, "long_url" character varying(255) NOT NULL, "submitter_id" integer, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (1.8ms)[0m  [1mCREATE UNIQUE INDEX  "index_shortened_urls_on_short_url" ON "shortened_urls" USING btree ("short_url")[0m
+  [1m[35m (1.4ms)[0m  CREATE  INDEX  "index_shortened_urls_on_submitter_id" ON "shortened_urls" USING btree ("submitter_id")
+  [1m[36m (3.8ms)[0m  [1mCREATE TABLE "tag_topics" ("id" serial primary key, "tag_topic" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (2.0ms)[0m  CREATE UNIQUE INDEX  "index_tag_topics_on_tag_topic" ON "tag_topics" USING btree ("tag_topic")
+  [1m[36m (3.1ms)[0m  [1mCREATE TABLE "taggings" ("id" serial primary key, "url_id" integer NOT NULL, "tag_topic_id" integer NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.3ms)[0m  CREATE  INDEX  "index_taggings_on_tag_topic_id" ON "taggings" USING btree ("tag_topic_id")
+  [1m[36m (1.4ms)[0m  [1mCREATE UNIQUE INDEX  "index_taggings_on_url_id_and_tag_topic_id" ON "taggings" USING btree ("url_id", "tag_topic_id")[0m
+  [1m[35m (1.4ms)[0m  CREATE  INDEX  "index_taggings_on_url_id" ON "taggings" USING btree ("url_id")
+  [1m[36m (3.1ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "created_at" timestamp, "updated_at" timestamp, "email" character varying(255) NOT NULL) [0m
+  [1m[35m (1.9ms)[0m  CREATE UNIQUE INDEX  "index_users_on_email" ON "users" USING btree ("email")
+  [1m[36m (3.3ms)[0m  [1mCREATE TABLE "visits" ("id" serial primary key, "created_at" timestamp, "updated_at" timestamp, "visitor_id" integer NOT NULL, "url_id" integer NOT NULL) [0m
+  [1m[35m (1.4ms)[0m  CREATE  INDEX  "index_visits_on_url_id" ON "visits" USING btree ("url_id")
+  [1m[36m (1.4ms)[0m  [1mCREATE  INDEX  "index_visits_on_visitor_id" ON "visits" USING btree ("visitor_id")[0m
+  [1m[35m (1.3ms)[0m  CREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) 
+  [1m[36m (1.5ms)[0m  [1mCREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")[0m
+  [1m[35m (0.5ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140820235609')[0m
+  [1m[35m (0.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140820205555')
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140820210311')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140820210607')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140820214349')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140820215825')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140820234040')[0m
+  [1m[35m (0.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140820234054')
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (1.3ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'rglassett@gmail.com' LIMIT 1[0m
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:07:41.190647"], ["email", "rglassett@gmail.com"], ["updated_at", "2014-08-21 00:07:41.190647"]]
+  [1m[36m (0.8ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'caslyn@gmail.com' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:07:41.201589"], ["email", "caslyn@gmail.com"], ["updated_at", "2014-08-21 00:07:41.201589"]]
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'ned@appacademy.io' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:07:41.205286"], ["email", "ned@appacademy.io"], ["updated_at", "2014-08-21 00:07:41.205286"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'cj@appacademy.io' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:07:41.208435"], ["email", "cj@appacademy.io"], ["updated_at", "2014-08-21 00:07:41.208435"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'chuck@norris.edu' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:07:41.211144"], ["email", "chuck@norris.edu"], ["updated_at", "2014-08-21 00:07:41.211144"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (1.1ms)[0m  SELECT  "users".* FROM "users"   ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mShortenedUrl Exists (0.8ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'RsTKigovdmNw7EEkbmY2AA' LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36mShortenedUrl Exists (0.7ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'RsTKigovdmNw7EEkbmY2AA' LIMIT 1[0m
+  [1m[35mShortenedUrl Exists (0.5ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://ryanglassett.io' LIMIT 1
+  [1m[36mSQL (1.1ms)[0m  [1mINSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:41.266410"], ["long_url", "http://ryanglassett.io"], ["short_url", "RsTKigovdmNw7EEkbmY2AA"], ["submitter_id", 1], ["updated_at", "2014-08-21 00:07:41.266410"]]
+  [1m[35m (0.9ms)[0m  COMMIT
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35mShortenedUrl Exists (0.5ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'KKFfpjsTfrA4j3sfDU91Og' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mShortenedUrl Exists (0.3ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'KKFfpjsTfrA4j3sfDU91Og' LIMIT 1
+  [1m[36mShortenedUrl Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://caslyn.io' LIMIT 1[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-08-21 00:07:41.274274"], ["long_url", "http://caslyn.io"], ["short_url", "KKFfpjsTfrA4j3sfDU91Og"], ["submitter_id", 2], ["updated_at", "2014-08-21 00:07:41.274274"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users"
+  [1m[36mShortenedUrl Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'ZmgT6jtx78rMXX6do65i-Q' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mShortenedUrl Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'ZmgT6jtx78rMXX6do65i-Q' LIMIT 1[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://chucknorris.io' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:41.280560"], ["long_url", "http://chucknorris.io"], ["short_url", "ZmgT6jtx78rMXX6do65i-Q"], ["submitter_id", 3], ["updated_at", "2014-08-21 00:07:41.280560"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35mShortenedUrl Exists (0.3ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = '60CEWLkNWbMnlMohu-cjiQ' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mShortenedUrl Exists (0.3ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = '60CEWLkNWbMnlMohu-cjiQ' LIMIT 1
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://cjsloveshack.net' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-08-21 00:07:41.285399"], ["long_url", "http://cjsloveshack.net"], ["short_url", "60CEWLkNWbMnlMohu-cjiQ"], ["submitter_id", 5], ["updated_at", "2014-08-21 00:07:41.285399"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (1.4ms)[0m  [1mINSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:41.296519"], ["updated_at", "2014-08-21 00:07:41.296519"], ["url_id", 1], ["visitor_id", 1]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-21 00:07:41.300505"], ["updated_at", "2014-08-21 00:07:41.300505"], ["url_id", 1], ["visitor_id", 2]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:41.302421"], ["updated_at", "2014-08-21 00:07:41.302421"], ["url_id", 2], ["visitor_id", 5]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-21 00:07:41.304163"], ["updated_at", "2014-08-21 00:07:41.304163"], ["url_id", 1], ["visitor_id", 3]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:41.305965"], ["updated_at", "2014-08-21 00:07:41.305965"], ["url_id", 2], ["visitor_id", 1]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-21 00:07:41.307776"], ["updated_at", "2014-08-21 00:07:41.307776"], ["url_id", 1], ["visitor_id", 4]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:41.309467"], ["updated_at", "2014-08-21 00:07:41.309467"], ["url_id", 2], ["visitor_id", 1]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-21 00:07:41.311197"], ["updated_at", "2014-08-21 00:07:41.311197"], ["url_id", 2], ["visitor_id", 5]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:41.312878"], ["updated_at", "2014-08-21 00:07:41.312878"], ["url_id", 2], ["visitor_id", 2]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mTagTopic Exists (0.7ms)[0m  SELECT  1 AS one FROM "tag_topics"  WHERE "tag_topics"."tag_topic" = 'Sports' LIMIT 1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "tag_topics" ("created_at", "tag_topic", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:41.327556"], ["tag_topic", "Sports"], ["updated_at", "2014-08-21 00:07:41.327556"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mTagTopic Exists (0.4ms)[0m  SELECT  1 AS one FROM "tag_topics"  WHERE "tag_topics"."tag_topic" = 'News' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tag_topics" ("created_at", "tag_topic", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:41.332356"], ["tag_topic", "News"], ["updated_at", "2014-08-21 00:07:41.332356"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mTagTopic Exists (0.3ms)[0m  SELECT  1 AS one FROM "tag_topics"  WHERE "tag_topics"."tag_topic" = 'Entertainment' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tag_topics" ("created_at", "tag_topic", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:41.335141"], ["tag_topic", "Entertainment"], ["updated_at", "2014-08-21 00:07:41.335141"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mTagTopic Exists (0.3ms)[0m  SELECT  1 AS one FROM "tag_topics"  WHERE "tag_topics"."tag_topic" = 'Weather' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tag_topics" ("created_at", "tag_topic", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:41.337677"], ["tag_topic", "Weather"], ["updated_at", "2014-08-21 00:07:41.337677"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mTagTopic Exists (0.3ms)[0m  SELECT  1 AS one FROM "tag_topics"  WHERE "tag_topics"."tag_topic" = 'Foreign Policy' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tag_topics" ("created_at", "tag_topic", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:41.340255"], ["tag_topic", "Foreign Policy"], ["updated_at", "2014-08-21 00:07:41.340255"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mTagTopic Exists (0.4ms)[0m  SELECT  1 AS one FROM "tag_topics"  WHERE "tag_topics"."tag_topic" = 'Time Wasting' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tag_topics" ("created_at", "tag_topic", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:41.343078"], ["tag_topic", "Time Wasting"], ["updated_at", "2014-08-21 00:07:41.343078"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mTagTopic Exists (0.3ms)[0m  SELECT  1 AS one FROM "tag_topics"  WHERE "tag_topics"."tag_topic" = 'Chuck Norris' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tag_topics" ("created_at", "tag_topic", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:41.345954"], ["tag_topic", "Chuck Norris"], ["updated_at", "2014-08-21 00:07:41.345954"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "taggings" ("created_at", "tag_topic_id", "updated_at", "url_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-21 00:07:41.356127"], ["tag_topic_id", 7], ["updated_at", "2014-08-21 00:07:41.356127"], ["url_id", 3]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "taggings" ("created_at", "tag_topic_id", "updated_at", "url_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:41.359969"], ["tag_topic_id", 6], ["updated_at", "2014-08-21 00:07:41.359969"], ["url_id", 1]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "taggings" ("created_at", "tag_topic_id", "updated_at", "url_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-21 00:07:41.361988"], ["tag_topic_id", 2], ["updated_at", "2014-08-21 00:07:41.361988"], ["url_id", 3]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "taggings" ("created_at", "tag_topic_id", "updated_at", "url_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:41.363708"], ["tag_topic_id", 4], ["updated_at", "2014-08-21 00:07:41.363708"], ["url_id", 3]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "taggings" ("created_at", "tag_topic_id", "updated_at", "url_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-21 00:07:41.365341"], ["tag_topic_id", 5], ["updated_at", "2014-08-21 00:07:41.365341"], ["url_id", 2]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "taggings" ("created_at", "tag_topic_id", "updated_at", "url_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-21 00:07:41.367104"], ["tag_topic_id", 6], ["updated_at", "2014-08-21 00:07:41.367104"], ["url_id", 2]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "taggings" ("created_at", "tag_topic_id", "updated_at", "url_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-21 00:07:41.368809"], ["tag_topic_id", 1], ["updated_at", "2014-08-21 00:07:41.368809"], ["url_id", 2]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (1.8ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'rglassett@gmail.com' LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT  1 AS one FROM "users"  WHERE "users"."email" = 'caslyn@gmail.com' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'ned@appacademy.io' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users"  WHERE "users"."email" = 'cj@appacademy.io' LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'chuck@norris.edu' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mUser Load (0.8ms)[0m  [1mSELECT  "users".* FROM "users"   ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mShortenedUrl Exists (0.6ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'sBdIJHf-RvntGgp_uRvKyA' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mShortenedUrl Exists (0.5ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'sBdIJHf-RvntGgp_uRvKyA' LIMIT 1
+  [1m[36mShortenedUrl Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://ryanglassett.io' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mTagging Load (1.4ms)[0m  [1mSELECT  "taggings".* FROM "taggings"   ORDER BY "taggings"."id" ASC LIMIT 1[0m
+  [1m[35mShortenedUrl Load (0.8ms)[0m  SELECT  "shortened_urls".* FROM "shortened_urls"  WHERE "shortened_urls"."id" = $1 LIMIT 1  [["id", 3]]
+  [1m[36mTagging Load (0.6ms)[0m  [1mSELECT  "taggings".* FROM "taggings"   ORDER BY "taggings"."id" ASC LIMIT 1[0m
+  [1m[35mTagTopic Load (0.9ms)[0m  SELECT  "tag_topics".* FROM "tag_topics"  WHERE "tag_topics"."id" = $1 LIMIT 1  [["id", 7]]
+  [1m[36mTagTopic Load (0.7ms)[0m  [1mSELECT  "tag_topics".* FROM "tag_topics"   ORDER BY "tag_topics"."id" ASC LIMIT 1[0m
+  [1m[35mTagTopic Load (0.6ms)[0m  SELECT  "tag_topics".* FROM "tag_topics"   ORDER BY "tag_topics"."id" ASC LIMIT 1
+  [1m[36mShortenedUrl Load (0.7ms)[0m  [1mSELECT "shortened_urls".* FROM "shortened_urls" INNER JOIN "taggings" ON "shortened_urls"."id" = "taggings"."url_id" WHERE "taggings"."tag_topic_id" = $1[0m  [["tag_topic_id", 1]]
+  [1m[35mTagTopic Load (0.6ms)[0m  SELECT  "tag_topics".* FROM "tag_topics"   ORDER BY "tag_topics"."id" ASC LIMIT 1
+  [1m[36mTagTopic Load (0.6ms)[0m  [1mSELECT  "tag_topics".* FROM "tag_topics"   ORDER BY "tag_topics"."id" ASC LIMIT 1[0m
+  [1m[35mTagging Load (0.7ms)[0m  SELECT "taggings".* FROM "taggings"  WHERE "taggings"."tag_topic_id" = $1  [["tag_topic_id", 1]]
+  [1m[36m (114.7ms)[0m  [1mDROP DATABASE IF EXISTS "url_shortener_development"[0m
+  [1m[35m (250.5ms)[0m  CREATE DATABASE "url_shortener_development" ENCODING = 'utf8'
+  [1m[36mSQL (0.5ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (7.2ms)[0m  CREATE TABLE "shortened_urls" ("id" serial primary key, "short_url" character varying(255) NOT NULL, "long_url" character varying(255) NOT NULL, "submitter_id" integer, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (1.8ms)[0m  [1mCREATE UNIQUE INDEX  "index_shortened_urls_on_short_url" ON "shortened_urls" USING btree ("short_url")[0m
+  [1m[35m (1.3ms)[0m  CREATE  INDEX  "index_shortened_urls_on_submitter_id" ON "shortened_urls" USING btree ("submitter_id")
+  [1m[36m (4.1ms)[0m  [1mCREATE TABLE "tag_topics" ("id" serial primary key, "tag_topic" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.4ms)[0m  CREATE UNIQUE INDEX  "index_tag_topics_on_tag_topic" ON "tag_topics" USING btree ("tag_topic")
+  [1m[36m (4.2ms)[0m  [1mCREATE TABLE "taggings" ("id" serial primary key, "url_id" integer NOT NULL, "tag_topic_id" integer NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.3ms)[0m  CREATE  INDEX  "index_taggings_on_tag_topic_id" ON "taggings" USING btree ("tag_topic_id")
+  [1m[36m (1.3ms)[0m  [1mCREATE UNIQUE INDEX  "index_taggings_on_url_id_and_tag_topic_id" ON "taggings" USING btree ("url_id", "tag_topic_id")[0m
+  [1m[35m (1.4ms)[0m  CREATE  INDEX  "index_taggings_on_url_id" ON "taggings" USING btree ("url_id")
+  [1m[36m (2.9ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "created_at" timestamp, "updated_at" timestamp, "email" character varying(255) NOT NULL) [0m
+  [1m[35m (1.5ms)[0m  CREATE UNIQUE INDEX  "index_users_on_email" ON "users" USING btree ("email")
+  [1m[36m (3.0ms)[0m  [1mCREATE TABLE "visits" ("id" serial primary key, "created_at" timestamp, "updated_at" timestamp, "visitor_id" integer NOT NULL, "url_id" integer NOT NULL) [0m
+  [1m[35m (1.4ms)[0m  CREATE  INDEX  "index_visits_on_url_id" ON "visits" USING btree ("url_id")
+  [1m[36m (1.4ms)[0m  [1mCREATE  INDEX  "index_visits_on_visitor_id" ON "visits" USING btree ("visitor_id")[0m
+  [1m[35m (1.3ms)[0m  CREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) 
+  [1m[36m (1.7ms)[0m  [1mCREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")[0m
+  [1m[35m (0.8ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.1ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140820235609')[0m
+  [1m[35m (0.8ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140820205555')
+  [1m[36m (0.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140820210311')[0m
+  [1m[35m (0.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140820210607')
+  [1m[36m (0.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140820214349')[0m
+  [1m[35m (0.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140820215825')
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140820234040')[0m
+  [1m[35m (0.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140820234054')
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (1.1ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'rglassett@gmail.com' LIMIT 1[0m
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:25:53.255162"], ["email", "rglassett@gmail.com"], ["updated_at", "2014-08-21 00:25:53.255162"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'caslyn@gmail.com' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:25:53.266216"], ["email", "caslyn@gmail.com"], ["updated_at", "2014-08-21 00:25:53.266216"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'ned@appacademy.io' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:25:53.269329"], ["email", "ned@appacademy.io"], ["updated_at", "2014-08-21 00:25:53.269329"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'cj@appacademy.io' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:25:53.272053"], ["email", "cj@appacademy.io"], ["updated_at", "2014-08-21 00:25:53.272053"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'chuck@norris.edu' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:25:53.274737"], ["email", "chuck@norris.edu"], ["updated_at", "2014-08-21 00:25:53.274737"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[36m (112.7ms)[0m  [1mDROP DATABASE IF EXISTS "url_shortener_development"[0m
+  [1m[35m (240.7ms)[0m  CREATE DATABASE "url_shortener_development" ENCODING = 'utf8'
+  [1m[36mSQL (0.4ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (7.4ms)[0m  CREATE TABLE "shortened_urls" ("id" serial primary key, "short_url" character varying(255) NOT NULL, "long_url" character varying(255) NOT NULL, "submitter_id" integer, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (1.8ms)[0m  [1mCREATE UNIQUE INDEX  "index_shortened_urls_on_short_url" ON "shortened_urls" USING btree ("short_url")[0m
+  [1m[35m (1.4ms)[0m  CREATE  INDEX  "index_shortened_urls_on_submitter_id" ON "shortened_urls" USING btree ("submitter_id")
+  [1m[36m (3.4ms)[0m  [1mCREATE TABLE "tag_topics" ("id" serial primary key, "tag_topic" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.8ms)[0m  CREATE UNIQUE INDEX  "index_tag_topics_on_tag_topic" ON "tag_topics" USING btree ("tag_topic")
+  [1m[36m (3.6ms)[0m  [1mCREATE TABLE "taggings" ("id" serial primary key, "url_id" integer NOT NULL, "tag_topic_id" integer NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.4ms)[0m  CREATE  INDEX  "index_taggings_on_tag_topic_id" ON "taggings" USING btree ("tag_topic_id")
+  [1m[36m (2.2ms)[0m  [1mCREATE UNIQUE INDEX  "index_taggings_on_url_id_and_tag_topic_id" ON "taggings" USING btree ("url_id", "tag_topic_id")[0m
+  [1m[35m (1.6ms)[0m  CREATE  INDEX  "index_taggings_on_url_id" ON "taggings" USING btree ("url_id")
+  [1m[36m (3.1ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "created_at" timestamp, "updated_at" timestamp, "email" character varying(255) NOT NULL) [0m
+  [1m[35m (1.4ms)[0m  CREATE UNIQUE INDEX  "index_users_on_email" ON "users" USING btree ("email")
+  [1m[36m (4.9ms)[0m  [1mCREATE TABLE "visits" ("id" serial primary key, "created_at" timestamp, "updated_at" timestamp, "visitor_id" integer NOT NULL, "url_id" integer NOT NULL) [0m
+  [1m[35m (1.4ms)[0m  CREATE  INDEX  "index_visits_on_url_id" ON "visits" USING btree ("url_id")
+  [1m[36m (1.4ms)[0m  [1mCREATE  INDEX  "index_visits_on_visitor_id" ON "visits" USING btree ("visitor_id")[0m
+  [1m[35m (1.7ms)[0m  CREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) 
+  [1m[36m (1.4ms)[0m  [1mCREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")[0m
+  [1m[35m (0.4ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140820235609')[0m
+  [1m[35m (0.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140820205555')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140820210311')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140820210607')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140820214349')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140820215825')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140820234040')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140820234054')
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (1.1ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'rglassett@gmail.com' LIMIT 1[0m
+  [1m[35mSQL (1.2ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:29:25.254139"], ["email", "rglassett@gmail.com"], ["updated_at", "2014-08-21 00:29:25.254139"]]
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.7ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'caslyn@gmail.com' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:29:25.265945"], ["email", "caslyn@gmail.com"], ["updated_at", "2014-08-21 00:29:25.265945"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'ned@appacademy.io' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:29:25.269328"], ["email", "ned@appacademy.io"], ["updated_at", "2014-08-21 00:29:25.269328"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'cj@appacademy.io' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:29:25.272116"], ["email", "cj@appacademy.io"], ["updated_at", "2014-08-21 00:29:25.272116"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'chuck@norris.edu' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:29:25.274927"], ["email", "chuck@norris.edu"], ["updated_at", "2014-08-21 00:29:25.274927"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (0.7ms)[0m  SELECT  "users".* FROM "users"   ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mShortenedUrl Exists (0.8ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'nuWAp4N0vdApDAcarYvj5Q' LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36mShortenedUrl Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'nuWAp4N0vdApDAcarYvj5Q' LIMIT 1[0m
+  [1m[35mShortenedUrl Exists (0.5ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://ryanglassett.io' LIMIT 1
+  [1m[36m (0.8ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls"  WHERE (submitter_id = 1 and created_at > '2014-08-21 00:28:25.330033')[0m
+  [1m[35mSQL (1.1ms)[0m  INSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-08-21 00:29:25.331733"], ["long_url", "http://ryanglassett.io"], ["short_url", "nuWAp4N0vdApDAcarYvj5Q"], ["submitter_id", 1], ["updated_at", "2014-08-21 00:29:25.331733"]]
+  [1m[36m (0.9ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (0.5ms)[0m  SELECT "users".* FROM "users"
+  [1m[36mShortenedUrl Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = '7o3YSkNlvh6v1K4BVKPRzw' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mShortenedUrl Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = '7o3YSkNlvh6v1K4BVKPRzw' LIMIT 1[0m
+  [1m[35mShortenedUrl Exists (0.5ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://caslyn.io' LIMIT 1
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls"  WHERE (submitter_id = 2 and created_at > '2014-08-21 00:28:25.340383')[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-08-21 00:29:25.341553"], ["long_url", "http://caslyn.io"], ["short_url", "7o3YSkNlvh6v1K4BVKPRzw"], ["submitter_id", 2], ["updated_at", "2014-08-21 00:29:25.341553"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users"
+  [1m[36mShortenedUrl Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'tv2hTnKem88KJPIAEPVsyA' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mShortenedUrl Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'tv2hTnKem88KJPIAEPVsyA' LIMIT 1[0m
+  [1m[35mShortenedUrl Exists (0.3ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://chucknorris.io' LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls"  WHERE (submitter_id = 3 and created_at > '2014-08-21 00:28:25.346775')[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-08-21 00:29:25.347709"], ["long_url", "http://chucknorris.io"], ["short_url", "tv2hTnKem88KJPIAEPVsyA"], ["submitter_id", 3], ["updated_at", "2014-08-21 00:29:25.347709"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users"
+  [1m[36mShortenedUrl Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'EIwtnHurwSBVw9NUInXFoA' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mShortenedUrl Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'EIwtnHurwSBVw9NUInXFoA' LIMIT 1[0m
+  [1m[35mShortenedUrl Exists (0.3ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://cjsloveshack.net' LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls"  WHERE (submitter_id = 5 and created_at > '2014-08-21 00:28:25.352900')[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-08-21 00:29:25.353777"], ["long_url", "http://cjsloveshack.net"], ["short_url", "EIwtnHurwSBVw9NUInXFoA"], ["submitter_id", 5], ["updated_at", "2014-08-21 00:29:25.353777"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users"
+  [1m[36mShortenedUrl Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'PnY4nNY5s_CcDc-dF4bKng' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mShortenedUrl Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'PnY4nNY5s_CcDc-dF4bKng' LIMIT 1[0m
+  [1m[35mShortenedUrl Exists (0.4ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://cjsoveshack.net' LIMIT 1
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls"  WHERE (submitter_id = 5 and created_at > '2014-08-21 00:28:25.359462')[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-08-21 00:29:25.360425"], ["long_url", "http://cjsoveshack.net"], ["short_url", "PnY4nNY5s_CcDc-dF4bKng"], ["submitter_id", 5], ["updated_at", "2014-08-21 00:29:25.360425"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users"
+  [1m[36mShortenedUrl Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'NxdFccSjHamjYan_pyRxNQ' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mShortenedUrl Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'NxdFccSjHamjYan_pyRxNQ' LIMIT 1[0m
+  [1m[35mShortenedUrl Exists (0.5ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://cjsveshack.net' LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls"  WHERE (submitter_id = 5 and created_at > '2014-08-21 00:28:25.366291')[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-08-21 00:29:25.367229"], ["long_url", "http://cjsveshack.net"], ["short_url", "NxdFccSjHamjYan_pyRxNQ"], ["submitter_id", 5], ["updated_at", "2014-08-21 00:29:25.367229"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users"
+  [1m[36mShortenedUrl Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'peE9ufJVD-4Jg1L71cc50g' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mShortenedUrl Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'peE9ufJVD-4Jg1L71cc50g' LIMIT 1[0m
+  [1m[35mShortenedUrl Exists (0.5ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://cjseshack.net' LIMIT 1
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls"  WHERE (submitter_id = 5 and created_at > '2014-08-21 00:28:25.372550')[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-08-21 00:29:25.373528"], ["long_url", "http://cjseshack.net"], ["short_url", "peE9ufJVD-4Jg1L71cc50g"], ["submitter_id", 5], ["updated_at", "2014-08-21 00:29:25.373528"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (0.5ms)[0m  SELECT "users".* FROM "users"
+  [1m[36mShortenedUrl Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'aCKVi6D0c1np13Dn92OXOw' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mShortenedUrl Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'aCKVi6D0c1np13Dn92OXOw' LIMIT 1[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://cjsshack.net' LIMIT 1
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls"  WHERE (submitter_id = 5 and created_at > '2014-08-21 00:28:25.378665')[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-08-21 00:29:25.379580"], ["long_url", "http://cjsshack.net"], ["short_url", "aCKVi6D0c1np13Dn92OXOw"], ["submitter_id", 5], ["updated_at", "2014-08-21 00:29:25.379580"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users"
+  [1m[36mShortenedUrl Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'SUt7Y2gRnmp_hjP0Cdhekw' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mShortenedUrl Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'SUt7Y2gRnmp_hjP0Cdhekw' LIMIT 1[0m
+  [1m[35mShortenedUrl Exists (0.3ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://cjshack.net' LIMIT 1
+  [1m[36m (0.6ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls"  WHERE (submitter_id = 5 and created_at > '2014-08-21 00:28:25.384508')[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-08-21 00:29:25.385752"], ["long_url", "http://cjshack.net"], ["short_url", "SUt7Y2gRnmp_hjP0Cdhekw"], ["submitter_id", 5], ["updated_at", "2014-08-21 00:29:25.385752"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users"
+  [1m[36mShortenedUrl Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'ol7-HaBYg0MQ18FQC_xkNQ' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mShortenedUrl Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'ol7-HaBYg0MQ18FQC_xkNQ' LIMIT 1[0m
+  [1m[35mShortenedUrl Exists (0.3ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://cjsack.net' LIMIT 1
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls"  WHERE (submitter_id = 5 and created_at > '2014-08-21 00:28:25.391141')[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (114.2ms)[0m  [1mDROP DATABASE IF EXISTS "url_shortener_development"[0m
+  [1m[35m (242.0ms)[0m  CREATE DATABASE "url_shortener_development" ENCODING = 'utf8'
+  [1m[36mSQL (0.4ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (7.2ms)[0m  CREATE TABLE "shortened_urls" ("id" serial primary key, "short_url" character varying(255) NOT NULL, "long_url" character varying(255) NOT NULL, "submitter_id" integer, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (2.1ms)[0m  [1mCREATE UNIQUE INDEX  "index_shortened_urls_on_short_url" ON "shortened_urls" USING btree ("short_url")[0m
+  [1m[35m (1.4ms)[0m  CREATE  INDEX  "index_shortened_urls_on_submitter_id" ON "shortened_urls" USING btree ("submitter_id")
+  [1m[36m (3.5ms)[0m  [1mCREATE TABLE "tag_topics" ("id" serial primary key, "tag_topic" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (2.0ms)[0m  CREATE UNIQUE INDEX  "index_tag_topics_on_tag_topic" ON "tag_topics" USING btree ("tag_topic")
+  [1m[36m (3.3ms)[0m  [1mCREATE TABLE "taggings" ("id" serial primary key, "url_id" integer NOT NULL, "tag_topic_id" integer NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (2.4ms)[0m  CREATE  INDEX  "index_taggings_on_tag_topic_id" ON "taggings" USING btree ("tag_topic_id")
+  [1m[36m (1.5ms)[0m  [1mCREATE UNIQUE INDEX  "index_taggings_on_url_id_and_tag_topic_id" ON "taggings" USING btree ("url_id", "tag_topic_id")[0m
+  [1m[35m (1.5ms)[0m  CREATE  INDEX  "index_taggings_on_url_id" ON "taggings" USING btree ("url_id")
+  [1m[36m (3.9ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "created_at" timestamp, "updated_at" timestamp, "email" character varying(255) NOT NULL) [0m
+  [1m[35m (1.6ms)[0m  CREATE UNIQUE INDEX  "index_users_on_email" ON "users" USING btree ("email")
+  [1m[36m (3.5ms)[0m  [1mCREATE TABLE "visits" ("id" serial primary key, "created_at" timestamp, "updated_at" timestamp, "visitor_id" integer NOT NULL, "url_id" integer NOT NULL) [0m
+  [1m[35m (1.6ms)[0m  CREATE  INDEX  "index_visits_on_url_id" ON "visits" USING btree ("url_id")
+  [1m[36m (2.1ms)[0m  [1mCREATE  INDEX  "index_visits_on_visitor_id" ON "visits" USING btree ("visitor_id")[0m
+  [1m[35m (1.7ms)[0m  CREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) 
+  [1m[36m (1.3ms)[0m  [1mCREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")[0m
+  [1m[35m (0.4ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140820235609')[0m
+  [1m[35m (0.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140820205555')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140820210311')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140820210607')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140820214349')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140820215825')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140820234040')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140820234054')
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (1.0ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'rglassett@gmail.com' LIMIT 1[0m
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:29:39.882165"], ["email", "rglassett@gmail.com"], ["updated_at", "2014-08-21 00:29:39.882165"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'caslyn@gmail.com' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:29:39.890783"], ["email", "caslyn@gmail.com"], ["updated_at", "2014-08-21 00:29:39.890783"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'ned@appacademy.io' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:29:39.893588"], ["email", "ned@appacademy.io"], ["updated_at", "2014-08-21 00:29:39.893588"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'cj@appacademy.io' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:29:39.896242"], ["email", "cj@appacademy.io"], ["updated_at", "2014-08-21 00:29:39.896242"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'chuck@norris.edu' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-08-21 00:29:39.899028"], ["email", "chuck@norris.edu"], ["updated_at", "2014-08-21 00:29:39.899028"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (1.1ms)[0m  SELECT  "users".* FROM "users"   ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mShortenedUrl Exists (0.8ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'x6Mz1q1fTsE4HVsHhuhFzw' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mShortenedUrl Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'x6Mz1q1fTsE4HVsHhuhFzw' LIMIT 1[0m
+  [1m[35mShortenedUrl Exists (0.4ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://ryanglassett.io' LIMIT 1
+  [1m[36m (0.6ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls"  WHERE (submitter_id = 1 and created_at > '2014-08-21 00:28:39.954223')[0m
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-08-21 00:29:39.955755"], ["long_url", "http://ryanglassett.io"], ["short_url", "x6Mz1q1fTsE4HVsHhuhFzw"], ["submitter_id", 1], ["updated_at", "2014-08-21 00:29:39.955755"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (0.5ms)[0m  SELECT "users".* FROM "users"
+  [1m[36mShortenedUrl Exists (0.7ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'm5sFzpRSBjQ0kdhteW5ERw' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mShortenedUrl Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'm5sFzpRSBjQ0kdhteW5ERw' LIMIT 1[0m
+  [1m[35mShortenedUrl Exists (0.4ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://caslyn.io' LIMIT 1
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls"  WHERE (submitter_id = 2 and created_at > '2014-08-21 00:28:39.963471')[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-08-21 00:29:39.964413"], ["long_url", "http://caslyn.io"], ["short_url", "m5sFzpRSBjQ0kdhteW5ERw"], ["submitter_id", 2], ["updated_at", "2014-08-21 00:29:39.964413"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users"
+  [1m[36mShortenedUrl Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = '6W1vipqtd2-tYtJ7Yl-Z6A' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mShortenedUrl Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = '6W1vipqtd2-tYtJ7Yl-Z6A' LIMIT 1[0m
+  [1m[35mShortenedUrl Exists (0.3ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://chucknorris.io' LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls"  WHERE (submitter_id = 3 and created_at > '2014-08-21 00:28:39.969820')[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-08-21 00:29:39.970733"], ["long_url", "http://chucknorris.io"], ["short_url", "6W1vipqtd2-tYtJ7Yl-Z6A"], ["submitter_id", 3], ["updated_at", "2014-08-21 00:29:39.970733"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users"
+  [1m[36mShortenedUrl Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'r0Bd5OTdL7LfkMq0-LGUiA' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mShortenedUrl Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."short_url" = 'r0Bd5OTdL7LfkMq0-LGUiA' LIMIT 1[0m
+  [1m[35mShortenedUrl Exists (0.3ms)[0m  SELECT  1 AS one FROM "shortened_urls"  WHERE "shortened_urls"."long_url" = 'http://cjsloveshack.net' LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls"  WHERE (submitter_id = 5 and created_at > '2014-08-21 00:28:39.975718')[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("created_at", "long_url", "short_url", "submitter_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-08-21 00:29:39.976610"], ["long_url", "http://cjsloveshack.net"], ["short_url", "r0Bd5OTdL7LfkMq0-LGUiA"], ["submitter_id", 5], ["updated_at", "2014-08-21 00:29:39.976610"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (1.4ms)[0m  [1mINSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-21 00:29:39.989203"], ["updated_at", "2014-08-21 00:29:39.989203"], ["url_id", 1], ["visitor_id", 1]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-21 00:29:39.993398"], ["updated_at", "2014-08-21 00:29:39.993398"], ["url_id", 1], ["visitor_id", 2]]
+  [1m[36m (1.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-21 00:29:39.996895"], ["updated_at", "2014-08-21 00:29:39.996895"], ["url_id", 2], ["visitor_id", 5]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-21 00:29:39.999698"], ["updated_at", "2014-08-21 00:29:39.999698"], ["url_id", 1], ["visitor_id", 3]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-21 00:29:40.001612"], ["updated_at", "2014-08-21 00:29:40.001612"], ["url_id", 2], ["visitor_id", 1]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-21 00:29:40.003474"], ["updated_at", "2014-08-21 00:29:40.003474"], ["url_id", 1], ["visitor_id", 4]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-21 00:29:40.005310"], ["updated_at", "2014-08-21 00:29:40.005310"], ["url_id", 2], ["visitor_id", 1]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-21 00:29:40.007131"], ["updated_at", "2014-08-21 00:29:40.007131"], ["url_id", 2], ["visitor_id", 5]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "visits" ("created_at", "updated_at", "url_id", "visitor_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-21 00:29:40.008914"], ["updated_at", "2014-08-21 00:29:40.008914"], ["url_id", 2], ["visitor_id", 2]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mTagTopic Exists (0.6ms)[0m  SELECT  1 AS one FROM "tag_topics"  WHERE "tag_topics"."tag_topic" = 'Sports' LIMIT 1
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "tag_topics" ("created_at", "tag_topic", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-08-21 00:29:40.024119"], ["tag_topic", "Sports"], ["updated_at", "2014-08-21 00:29:40.024119"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mTagTopic Exists (0.4ms)[0m  SELECT  1 AS one FROM "tag_topics"  WHERE "tag_topics"."tag_topic" = 'News' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "tag_topics" ("created_at", "tag_topic", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-08-21 00:29:40.028169"], ["tag_topic", "News"], ["updated_at", "2014-08-21 00:29:40.028169"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mTagTopic Exists (0.4ms)[0m  SELECT  1 AS one FROM "tag_topics"  WHERE "tag_topics"."tag_topic" = 'Entertainment' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tag_topics" ("created_at", "tag_topic", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-08-21 00:29:40.031204"], ["tag_topic", "Entertainment"], ["updated_at", "2014-08-21 00:29:40.031204"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mTagTopic Exists (0.3ms)[0m  SELECT  1 AS one FROM "tag_topics"  WHERE "tag_topics"."tag_topic" = 'Weather' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tag_topics" ("created_at", "tag_topic", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-08-21 00:29:40.033988"], ["tag_topic", "Weather"], ["updated_at", "2014-08-21 00:29:40.033988"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mTagTopic Exists (0.3ms)[0m  SELECT  1 AS one FROM "tag_topics"  WHERE "tag_topics"."tag_topic" = 'Foreign Policy' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tag_topics" ("created_at", "tag_topic", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-08-21 00:29:40.036770"], ["tag_topic", "Foreign Policy"], ["updated_at", "2014-08-21 00:29:40.036770"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mTagTopic Exists (0.4ms)[0m  SELECT  1 AS one FROM "tag_topics"  WHERE "tag_topics"."tag_topic" = 'Time Wasting' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tag_topics" ("created_at", "tag_topic", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-08-21 00:29:40.039551"], ["tag_topic", "Time Wasting"], ["updated_at", "2014-08-21 00:29:40.039551"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mTagTopic Exists (0.3ms)[0m  SELECT  1 AS one FROM "tag_topics"  WHERE "tag_topics"."tag_topic" = 'Chuck Norris' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tag_topics" ("created_at", "tag_topic", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-08-21 00:29:40.042178"], ["tag_topic", "Chuck Norris"], ["updated_at", "2014-08-21 00:29:40.042178"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.2ms)[0m  INSERT INTO "taggings" ("created_at", "tag_topic_id", "updated_at", "url_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-21 00:29:40.054688"], ["tag_topic_id", 7], ["updated_at", "2014-08-21 00:29:40.054688"], ["url_id", 3]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "taggings" ("created_at", "tag_topic_id", "updated_at", "url_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-21 00:29:40.059356"], ["tag_topic_id", 6], ["updated_at", "2014-08-21 00:29:40.059356"], ["url_id", 1]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "taggings" ("created_at", "tag_topic_id", "updated_at", "url_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-21 00:29:40.061497"], ["tag_topic_id", 2], ["updated_at", "2014-08-21 00:29:40.061497"], ["url_id", 3]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "taggings" ("created_at", "tag_topic_id", "updated_at", "url_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-21 00:29:40.063419"], ["tag_topic_id", 4], ["updated_at", "2014-08-21 00:29:40.063419"], ["url_id", 3]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "taggings" ("created_at", "tag_topic_id", "updated_at", "url_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-21 00:29:40.065299"], ["tag_topic_id", 5], ["updated_at", "2014-08-21 00:29:40.065299"], ["url_id", 2]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "taggings" ("created_at", "tag_topic_id", "updated_at", "url_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-08-21 00:29:40.067117"], ["tag_topic_id", 6], ["updated_at", "2014-08-21 00:29:40.067117"], ["url_id", 2]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "taggings" ("created_at", "tag_topic_id", "updated_at", "url_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-08-21 00:29:40.069085"], ["tag_topic_id", 1], ["updated_at", "2014-08-21 00:29:40.069085"], ["url_id", 2]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[36mTagTopic Load (1.2ms)[0m  [1mSELECT  "tag_topics".* FROM "tag_topics"   ORDER BY "tag_topics"."id" ASC LIMIT 1[0m
+  [1m[35mTagTopic Load (0.7ms)[0m  SELECT  "tag_topics".* FROM "tag_topics"   ORDER BY "tag_topics"."id" ASC LIMIT 1
+  [1m[36m (1.1ms)[0m  [1mSELECT COUNT(*) FROM "taggings"  WHERE "taggings"."tag_topic_id" = $1 AND (tag_topic_id = 1)[0m  [["tag_topic_id", 1]]
+  [1m[35mTagTopic Load (0.6ms)[0m  SELECT "tag_topics".* FROM "tag_topics"
+  [1m[36mTagging Load (0.5ms)[0m  [1mSELECT "taggings".* FROM "taggings"[0m
+  [1m[35mTagTopic Load (0.6ms)[0m  SELECT  "tag_topics".* FROM "tag_topics"  WHERE "tag_topics"."id" = $1 LIMIT 1  [["id", 6]]
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(*) FROM "taggings"  WHERE "taggings"."tag_topic_id" = $1 AND (tag_topic_id = 6)[0m  [["tag_topic_id", 6]]
+  [1m[35mTagTopic Load (0.5ms)[0m  SELECT "tag_topics".* FROM "tag_topics"
+  [1m[36mTagTopic Load (0.5ms)[0m  [1mSELECT "tag_topics".* FROM "tag_topics"[0m
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM "taggings"  WHERE "taggings"."tag_topic_id" = $1 AND (tag_topic_id = 1)  [["tag_topic_id", 1]]
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(*) FROM "taggings"  WHERE "taggings"."tag_topic_id" = $1 AND (tag_topic_id = 4)[0m  [["tag_topic_id", 4]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "taggings"  WHERE "taggings"."tag_topic_id" = $1 AND (tag_topic_id = 4)  [["tag_topic_id", 4]]
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(*) FROM "taggings"  WHERE "taggings"."tag_topic_id" = $1 AND (tag_topic_id = 7)[0m  [["tag_topic_id", 7]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "taggings"  WHERE "taggings"."tag_topic_id" = $1 AND (tag_topic_id = 2)  [["tag_topic_id", 2]]
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM "taggings"  WHERE "taggings"."tag_topic_id" = $1 AND (tag_topic_id = 4)[0m  [["tag_topic_id", 4]]
+  [1m[35m (0.7ms)[0m  SELECT COUNT(*) FROM "taggings"  WHERE "taggings"."tag_topic_id" = $1 AND (tag_topic_id = 3)  [["tag_topic_id", 3]]
+  [1m[36m (0.5ms)[0m  [1mSELECT COUNT(*) FROM "taggings"  WHERE "taggings"."tag_topic_id" = $1 AND (tag_topic_id = 4)[0m  [["tag_topic_id", 4]]
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM "taggings"  WHERE "taggings"."tag_topic_id" = $1 AND (tag_topic_id = 6)  [["tag_topic_id", 6]]
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(*) FROM "taggings"  WHERE "taggings"."tag_topic_id" = $1 AND (tag_topic_id = 4)[0m  [["tag_topic_id", 4]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "taggings"  WHERE "taggings"."tag_topic_id" = $1 AND (tag_topic_id = 5)  [["tag_topic_id", 5]]
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(*) FROM "taggings"  WHERE "taggings"."tag_topic_id" = $1 AND (tag_topic_id = 4)[0m  [["tag_topic_id", 4]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "taggings"  WHERE "taggings"."tag_topic_id" = $1 AND (tag_topic_id = 1)  [["tag_topic_id", 1]]
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM "taggings"  WHERE "taggings"."tag_topic_id" = $1 AND (tag_topic_id = 4)[0m  [["tag_topic_id", 4]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "taggings"  WHERE "taggings"."tag_topic_id" = $1 AND (tag_topic_id = 2)  [["tag_topic_id", 2]]
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM "taggings"  WHERE "taggings"."tag_topic_id" = $1 AND (tag_topic_id = 4)[0m  [["tag_topic_id", 4]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "taggings"  WHERE "taggings"."tag_topic_id" = $1 AND (tag_topic_id = 1)  [["tag_topic_id", 1]]
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM "taggings"  WHERE "taggings"."tag_topic_id" = $1 AND (tag_topic_id = 5)[0m  [["tag_topic_id", 5]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "taggings"  WHERE "taggings"."tag_topic_id" = $1 AND (tag_topic_id = 5)  [["tag_topic_id", 5]]
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM "taggings"  WHERE "taggings"."tag_topic_id" = $1 AND (tag_topic_id = 7)[0m  [["tag_topic_id", 7]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "taggings"  WHERE "taggings"."tag_topic_id" = $1 AND (tag_topic_id = 2)  [["tag_topic_id", 2]]
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM "taggings"  WHERE "taggings"."tag_topic_id" = $1 AND (tag_topic_id = 5)[0m  [["tag_topic_id", 5]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "taggings"  WHERE "taggings"."tag_topic_id" = $1 AND (tag_topic_id = 6)  [["tag_topic_id", 6]]
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM "taggings"  WHERE "taggings"."tag_topic_id" = $1 AND (tag_topic_id = 5)[0m  [["tag_topic_id", 5]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "taggings"  WHERE "taggings"."tag_topic_id" = $1 AND (tag_topic_id = 2)  [["tag_topic_id", 2]]
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM "taggings"  WHERE "taggings"."tag_topic_id" = $1 AND (tag_topic_id = 5)[0m  [["tag_topic_id", 5]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "taggings"  WHERE "taggings"."tag_topic_id" = $1 AND (tag_topic_id = 7)  [["tag_topic_id", 7]]
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM "taggings"  WHERE "taggings"."tag_topic_id" = $1 AND (tag_topic_id = 5)[0m  [["tag_topic_id", 5]]
+  [1m[35mTagTopic Load (42.9ms)[0m  SELECT  "tag_topics".* FROM "tag_topics"   ORDER BY num_taggings LIMIT 2
+PG::UndefinedColumn: ERROR:  column "num_taggings" does not exist
+LINE 1: ...LECT  "tag_topics".* FROM "tag_topics"   ORDER BY num_taggin...
+                                                             ^
+: SELECT  "tag_topics".* FROM "tag_topics"   ORDER BY num_taggings LIMIT 2
+  [1m[36mTagTopic Load (0.5ms)[0m  [1mSELECT "tag_topics".* FROM "tag_topics"   ORDER BY num_taggings[0m
+PG::UndefinedColumn: ERROR:  column "num_taggings" does not exist
+LINE 1: ...ELECT "tag_topics".* FROM "tag_topics"   ORDER BY num_taggin...
+                                                             ^
+: SELECT "tag_topics".* FROM "tag_topics"   ORDER BY num_taggings
+  [1m[35mTagTopic Load (0.8ms)[0m  SELECT "tag_topics".* FROM "tag_topics"   ORDER BY num_taggings
+PG::UndefinedColumn: ERROR:  column "num_taggings" does not exist
+LINE 1: ...ELECT "tag_topics".* FROM "tag_topics"   ORDER BY num_taggin...
+                                                             ^
+: SELECT "tag_topics".* FROM "tag_topics"   ORDER BY num_taggings
+  [1m[36mTagTopic Load (0.5ms)[0m  [1mSELECT  "tag_topics".* FROM "tag_topics"   ORDER BY num_taggings LIMIT 2[0m
+PG::UndefinedColumn: ERROR:  column "num_taggings" does not exist
+LINE 1: ...LECT  "tag_topics".* FROM "tag_topics"   ORDER BY num_taggin...
+                                                             ^
+: SELECT  "tag_topics".* FROM "tag_topics"   ORDER BY num_taggings LIMIT 2
+  [1m[35mTagTopic Load (0.5ms)[0m  SELECT  "tag_topics".* FROM "tag_topics"   ORDER BY num_taggings LIMIT 2
+PG::UndefinedColumn: ERROR:  column "num_taggings" does not exist
+LINE 1: ...LECT  "tag_topics".* FROM "tag_topics"   ORDER BY num_taggin...
+                                                             ^
+: SELECT  "tag_topics".* FROM "tag_topics"   ORDER BY num_taggings LIMIT 2
+  [1m[36mTagTopic Load (31.9ms)[0m  [1mSELECT  "tag_topics".* FROM "tag_topics" INNER JOIN "taggings" ON "taggings"."tag_topic_id" = "tag_topics"."id" GROUP BY tag_topics.id  ORDER BY COUNT(*) DESC LIMIT 2[0m
+  [1m[35mTagTopic Load (0.9ms)[0m  SELECT  "tag_topics".* FROM "tag_topics" INNER JOIN "taggings" ON "taggings"."tag_topic_id" = "tag_topics"."id" GROUP BY tag_topics.id  ORDER BY COUNT(*) DESC LIMIT 2
+  [1m[36mTagTopic Load (1.2ms)[0m  [1mSELECT  "tag_topics".* FROM "tag_topics" INNER JOIN "taggings" ON "taggings"."tag_topic_id" = "tag_topics"."id" GROUP BY tag_topics.id  ORDER BY COUNT(*) DESC LIMIT 1[0m
+  [1m[35mTagTopic Load (0.9ms)[0m  SELECT  "tag_topics".* FROM "tag_topics" INNER JOIN "taggings" ON "taggings"."tag_topic_id" = "tag_topics"."id" GROUP BY tag_topics.id  ORDER BY COUNT(*) DESC LIMIT 5

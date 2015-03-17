@@ -1,0 +1,24 @@
+<% method = comment.persisted? ? "PATCH" : "POST" %>
+<% action = comment.persisted? ? comment_url(comment) : comments_url %>
+<% button = comment.persisted? ? "Update Comment"  : "Submit Comment" %>
+
+<form action='<%= action %>' method="POST">
+  <input type='hidden' name='_method' value='<%= method %>'>
+  
+  <%= auth_token %>
+  
+  <input type='hidden'
+         name='comment[commentable_id]'
+         value='<%= comment.commentable_id %>'>
+         
+  <input type='hidden'
+         name='comment[commentable_type]'
+         value='<%= comment.commentable_type %>'>
+
+  <label for="comment_body">Comment Text</label>
+  <textarea name="comment[body]"
+            id="comment_body"
+            ><%= comment.body %></textarea>
+         
+  <input type="submit" value="<%= button %>">
+</form>

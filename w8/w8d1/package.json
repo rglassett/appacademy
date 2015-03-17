@@ -1,0 +1,16 @@
+{
+  "name": "nodechat",
+  "version": "0.0.0",
+  "description": "A simple node chat client",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "dependencies": {
+    "socket.io": "1.0.x",
+    "mime": "~1.2.7",
+    "node-static": "^0.7.4"
+  },
+  "license": "ISC"
+}

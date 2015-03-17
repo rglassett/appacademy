@@ -1,0 +1,22 @@
+<h1><%= content_for(:title, @user.username) %></h1>
+
+<h3>Goals</h3>
+<ul>
+  <% @goals.each do |goal| %>
+    <li><%= link_to goal.description, goal %> <%= "(Completed)" if goal.completed? %></li>
+  <% end %>
+</ul>
+
+<% if @user == current_user %>
+  <%= button_to "New Goal", new_goal_url, method: :get %>
+<% end %>
+
+<ul>
+<% @user.comments.each do |comment| %>
+  <li><%= link_to comment.body, comment_url(comment) %></li>
+<% end %>
+</ul>
+
+<% if logged_in? %>
+  <%= button_to "New Comment", new_user_comment_url(@user), method: :get %>
+<% end %>

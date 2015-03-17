@@ -1,0 +1,31 @@
+/*img {
+  width: 100%;
+}*/
+
+.zoomable {
+/*  margin: 200px auto;*/
+  width: 300px;
+  height: 300px;
+  position: relative;
+  cursor: none;
+/*  down: 200px;*/
+}
+
+.zoomable img {
+  width: 100%;
+}
+
+.zoomable .focus-box {
+  width: 60px;
+  height: 60px;
+  border: thin solid white;
+  position: absolute;
+}
+
+.zoomable .zoomed-image {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  background-repeat: no-repeat;
+}

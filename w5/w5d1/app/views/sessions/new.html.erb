@@ -1,0 +1,10 @@
+<h1><%= content_for(:title, "Login") %></h1>
+
+<%= render(
+  partial: "users/form",
+  locals: {
+    user: @user, 
+    method: "POST",
+    action: session_url,
+    button: "Sign In"
+  } ) %>

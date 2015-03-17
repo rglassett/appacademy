@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>News Reader</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<% if current_user %>
+  Welcome, <%= current_user.name %>!
+  <%= button_to("Logout", session_url, method: :delete) %>
+  <%= link_to("Your followed feeds", user_url(current_user)) %>
+<% else %>
+  <%= button_to("Sign Up", new_user_url, method: :get) %>
+  <%= button_to("Sign In", new_session_url, method: :get) %>
+<% end %>
+
+  <%= yield %>
+
+<% if flash[:errors] %>
+  <ul>
+  <% flash[:errors].each do |e| %>
+    <li><%= e %></li>
+  <% end %>
+  </ul>
+<% end %>
+
+
+<%= link_to("All Feeds", root_url) %>
+</body>
+</html>

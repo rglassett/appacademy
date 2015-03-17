@@ -1,0 +1,11 @@
+<form action="<%= session_url %>" method="POST">Sign In!
+  <label>
+    Name
+    <input type="text" name="user[name]" value="<%= @user.name %>"/>
+  </label>
+  <label>
+    Password
+    <input type="password" name="user[password]" />
+  </label>
+  <input type="submit" value="Submit" />
+</form>

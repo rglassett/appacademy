@@ -1,0 +1,50 @@
+<h1><%= @cat.name %></h1>
+
+<table>
+  <tr>
+    <th>Attribute</th>
+    <th>Value</th>
+  </tr>
+  <% @cat.attributes.each do |key, value| %>
+    <tr>
+      <td> <%= key %> </td>
+      <td> <%= value %> </td>
+    </tr>
+  <% end %>
+</table>
+
+<a href="<%= edit_cat_url(@cat) %>"><button name="edit">Edit this cat!</button></a>
+
+<table>
+  
+  <h2>Rental Requests</h2>
+    <th> Start Date </th>
+    <th> End Date </th>
+    <th> Status </th>
+    <th> Requested By </th>
+      <% @cat.cat_rental_requests.order(:start_date).each do |request| %>
+        <tr>
+          <td> <%= request.start_date %> </td>
+          <td> <%= request.end_date %> </td>
+          <td> <%= request.status %> </td>
+          <td> <%= request.user.user_name %></td>
+          
+          <% if current_user && request.pending? && current_user.id == @cat.user_id %>
+            <td> 
+                <%= button_to("Approve!",
+                cat_rental_request_approve_url(request), 
+                   method: :patch) %>
+            </td>
+                   
+            <td> 
+                <%= button_to("Deny!",
+                 cat_rental_request_deny_url(request),
+                 method: :patch) %>
+            </td>
+          
+          <% end %>
+        </tr>
+      <% end %>
+  </tr>
+</table>
+

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Cosmic Website</title>
+    <script src="./jquery-1.11.1.js"></script>
+    <script src="./zoomable.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.17.2/build/cssreset/cssreset-min.css">
+    <link href="./zoomable.css" rel="stylesheet" type="text/css">
+  </head>
+
+  <script>
+    $(function() {
+      zoomable = $('.zoomable').zoomable();
+    })
+  </script>
+  <body>
+    <div class="zoomable">
+      <img src="hubble.jpg">
+    </div>
+  </body>
+</html>

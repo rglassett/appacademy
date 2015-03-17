@@ -1,0 +1,20 @@
+<h1>Cats</h1>
+
+<% if @user%>
+  <%= "Hello, #{@user.user_name}" %>
+<% end %>
+
+<ul>
+  <% @cats.each do |cat| %>
+
+    <li>
+      <!-- <a href="<%=cat_url(cat)%>"><%= cat.name %></a> -->
+      <%= link_to cat.name, cat_url(cat) %>
+    </li>
+
+  <% end %>
+</ul>
+
+<a href="<%= new_cat_url %>"><button name="create">Create a cat!</button></a>
+<br>
+<%= button_to("Rent A Cat!", new_cat_rental_request_url, method: :get ) %>

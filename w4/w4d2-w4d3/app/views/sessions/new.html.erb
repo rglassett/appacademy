@@ -1,0 +1,22 @@
+<h1> Login Page </h1>
+
+<form action="<%= session_url %>" method="POST">
+
+  <input type="hidden" 
+         name="authenticity_token" 
+         value="<%= form_authenticity_token %>">
+
+  <label for="user_name">Username</label>
+  <input type="text"
+         name="user[user_name]"
+         id="user_name">
+  <br>
+
+  <label for="password">Password</label>
+  <input type="password"
+         name="user[password]"
+         id="password">
+
+  <%= button_to("Submit Credentials!", session_url, method: :post) %>
+  <%= button_to("Register!", new_user_url, method: :get) %>
+</form>

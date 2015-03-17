@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Most Awesome Website</title>
+    <script src="./jquery-1.11.1.js"></script>
+    <script src="./thumbnails.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.17.2/build/cssreset/cssreset-min.css">
+    <link href="./thumbnails.css" rel="stylesheet" type="text/css">
+  </head>
+
+  <script>
+    $(function() {
+      thumbnails = $('.thumbnails').thumbnails();
+    })
+  </script>
+  <body>
+    <div class="thumbnails">
+      <div class="items">
+          <img src="./imgs/300.jpg">
+          <img src="./imgs/301.jpg">
+          <img src="./imgs/302.jpg">
+          <img src="./imgs/303.jpg">
+          <img src="./imgs/304.jpg">
+          <img src="./imgs/305.jpg">
+          <img src="./imgs/306.jpg">
+      </div>
+    </div>
+  </body>
+</html>

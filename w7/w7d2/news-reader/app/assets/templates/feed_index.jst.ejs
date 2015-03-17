@@ -1,0 +1,19 @@
+<h1>Feeds Index</h1>
+<ul>
+  <% feeds.models.forEach(function (feed) { %>
+    <li><a href="#feeds/<%= feed.escape('id') %>"><%= feed.escape('title') %></a>
+    <button class="delete-feed" data-id="<%= feed.escape("id") %>">Delete Feed</button>
+    </li>
+  <% }) %>
+</ul>
+
+<h3>New Feed</h3>
+<form action="#feeds/">
+  <label for="feed-title">Feed Title</label>
+  <input type="text" id="feed-title" name="feed[title]">
+  
+  <label for="feed-url">Feed Url</label>
+  <input type="text" id="feed-url" name="feed[url]">
+  
+  <input type="submit" value="Submit">
+</form>

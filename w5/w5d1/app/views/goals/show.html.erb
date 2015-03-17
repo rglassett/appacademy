@@ -1,0 +1,23 @@
+<h1><%= content_for(:title, "Goal#show") %></h1>
+
+<%= @goal.description %>
+
+<ul>
+  <%= "<li>Private</li>".html_safe   if @goal.private? %>
+  <%= "<li>Completed</li>".html_safe if @goal.completed? %>
+</ul>
+
+<% if current_user == @goal.user %>
+  <%= button_to "Edit Goal", edit_goal_url(@goal), method: :get %>
+  <%= button_to "Delete Goal", goal_url(@goal), method: :delete %>
+<% end %>
+
+<ul>
+<% @goal.comments.each do |comment| %>
+  <li><%= link_to comment.body, comment_url(comment) %></li>
+<% end %>
+</ul>
+
+<% if logged_in? %>
+  <%= button_to "New Comment", new_goal_comment_url(@goal), method: :get %>
+<% end %>

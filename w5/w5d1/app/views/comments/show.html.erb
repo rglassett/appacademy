@@ -1,0 +1,6 @@
+<h1><%= content_for(:title, "Comments#show") %></h1>
+
+<%= @comment.body %>
+
+<%= button_to "Edit Comment", edit_comment_url(@comment), method: :get %>
+<%= button_to "Delete Comment", comment_url(@comment), method: :delete %>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Even More Awesome Website</title>
+    <script src="./jquery-1.11.1.js"></script>
+    <script src="./carousel.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.17.2/build/cssreset/cssreset-min.css">
+    <link href="./carousel.css" rel="stylesheet" type="text/css">
+  </head>
+
+  <script>
+    $(function() {
+      carousel = $('.carousel').carousel();
+    })
+  </script>
+  <body>
+    <div class="carousel">
+      <div class="items">
+          <img src="./imgs/300.jpg">
+          <img src="./imgs/301.jpg">
+          <img src="./imgs/302.jpg">
+          <img src="./imgs/303.jpg">
+          <img src="./imgs/304.jpg">
+      </div>
+      <a href="#" class="slide-left">Previous</a>
+      <a href="#" class="slide-right">Next</a>
+    </div>
+  </body>
+</html>
