@@ -70,7 +70,7 @@ Work I completed during the August 2014 cohort of [App Academy][app-academy].
 [node-chat]: w8/w8d1/
 
 ## Final Project
-### Tumblr Clone: Flux-capacitr ( [code][flux-capacitr] | [live][flux-capacitr-live])
+### Tumblr Clone: Flux-capacitr ( [code][flux-capacitr] | [live][flux-capacitr-live] )
 
 [flux-capacitr]: http://github.com/rglassett/flux-capacitr/
 [flux-capacitr-live]: http://www.flux-capacitr.com/
