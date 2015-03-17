@@ -1,0 +1,134 @@
+* {
+  font-family: Helvetica, Arial, Sans-Serif;
+  font-size: 13px;
+  padding: 2px;
+ /* border: thin solid blue;*/
+}
+a {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: block;
+  margin-top: 100px;
+}
+
+img {
+  display: block;
+  margin: 0 auto;
+}
+
+header {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-right: 25px;
+}
+
+header ul {
+  float: right;
+}
+
+header li{
+  font-size: 13px;
+  float: left;
+  padding-left: 15px;
+}
+
+.form {
+  display: block;
+  margin: 0 auto; 
+  width: 600px;
+}
+
+input {
+  display:block;
+  margin: 0 auto;
+}
+
+.input {
+  display: block;
+  margin: 0 auto;
+  width: 230px;
+}
+
+.button {
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.button input {
+  display: inline-block;
+  background: #E8E8E8;
+  border: solid #C8C8C8 1px;
+  border-radius: 3px;
+  padding: 5px 5px;
+  color: rgb(68, 68, 68);
+  font-size: 11px;
+  font-weight: bold;
+  margin: 0 5px;
+}
+
+.outer-container {
+  width: 60%;
+  margin: 0 auto;
+}
+
+footer {
+  border-top: solid #C8C8C8 1px;
+  box-sizing: border-box;
+  background-color: #E8E8E8;
+  color: rgb(102, 102, 102);
+  position:absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  
+}
+
+footer li {
+  float: left;
+  padding: 0px 10px;
+}
+
+.microphone {
+  opacity: .6;
+  position:absolute;
+  width: 14px;
+  height: 19px;
+  right: 10;
+  top: 5;
+}
+
+.pullleft {
+  float:left;
+  margin-left: 20px;
+}
+
+.pullright {
+  float:right;
+  margin-right: 20px;
+}
+
+.signin {
+  background: #0066FF;
+  border: none;
+  border-radius: 3px;
+  padding: 7.5px 15px;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  margin-top: -8px;
+}
+
+.signin:active {
+  background: #1b435e;
+}
+
+.searchbar {
+  margin: 0 auto;
+  
+  width:535px;
+  position: relative;
+}

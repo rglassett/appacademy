@@ -1,0 +1,39 @@
+.clearfix {
+  clear: both;
+  content: '';
+  display: block;
+}
+header * {
+/*  border: thin solid blue;*/
+}
+
+header {
+  box-sizing: border-box;
+  float: left;
+  background-color: #606060;
+  box-sizing: border-box;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  height: 46px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 12px 20px;
+  width: 100%;
+}
+
+header img {
+  float: left;
+  width: 30;
+  height: 30;
+}
+
+header div div {
+  width: 11.1%;
+  float: right;
+  text-align: right;
+}
+
+.list-container {
+  margin-left: -65.5px;
+}

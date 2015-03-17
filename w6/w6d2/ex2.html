@@ -1,0 +1,220 @@
+<html>
+  <head>
+    <style>
+    * {
+      margin: 0;
+      padding: 0;
+/*      border: thin solid blue;*/
+      font-family: helvetica;  
+    }
+    
+    body {
+      background-color: lightslategray;
+    }
+    
+    .top-bar {
+      background-color: red;
+      color: white;
+      display: block;
+      border-bottom: solid black 2px;
+    }
+    
+    .top-bar::after {
+      clear: both;
+      content: '';
+      display: block;
+    }
+    
+ /*   .top-bar ul {
+      float: right;
+    }*/
+   
+   .top-bar-container > ul {
+     float:right;
+     
+   }
+   
+   .top-bar-container > ul > li {
+     float: left;
+     border-left: solid black 3px;
+     margin-right: 0px;
+     padding: 10px 15px;
+   }
+    
+/*    .top-bar li {
+      float: left;
+      border-left: solid black 3px;
+      margin-right: 0px;
+      padding: 10px 15px;
+    }*/
+    
+    .top-bar-container {
+      box-sizing: border-box;
+      width: 80%;
+      margin: 0 auto;
+      position: relative;
+      border-left: solid black 3px;
+      border-right: solid black 3px;
+    }
+    
+    .top-bar-container::after {
+      clear: both;
+      content: '';   
+      display: block;
+    }
+    
+    .item {
+      display: inline-block;
+      padding: 10px;
+    }
+    
+    .notification {
+      position: relative;
+    }
+  
+    .notification:hover {
+      background-color: darkslategray;
+    }
+    
+    .notification ul {
+      display:none;
+      border-left: solid black 2px;
+      border-right: solid black 2px;
+      position: absolute;
+      top: 40px;
+      left: -3px;
+    
+    }
+    
+    .notification ul li {
+      color: black;
+    }
+    
+    .notification:hover ul {
+      display:block;
+      background-color: white;
+      color: black;
+      width: 200px;
+      z-index: 1;
+    }
+    
+    li ul li {
+      box-sizing: border-box;
+      width: 100%;
+      float: left;
+      padding: 2px;
+      border-bottom: solid black 2px;
+    }
+    
+    li ul li:hover {
+      background-color: lightgray;
+    }
+    
+    h2 {
+      margin-bottom: 20px;
+    }
+    
+    .center-container {
+      box-sizing: border-box;
+      background-color: white;
+      width: 80%;
+      margin: 0 auto;
+      position: relative;
+      padding: 20px 0px;
+      border-left: solid gray 3px;
+      border-right: solid gray 3px;
+      border-left: solid gray 3px;
+    }
+    
+    .center-container::after {
+      clear: both;
+      content: '';   
+      display: block;
+    }
+    
+    .left-sidebar {
+      box-sizing: border-box;
+      width: 30%;
+      float: left;
+      padding-left: 40px;
+      padding-right: 40px;
+      border-right: 3px solid lightgray;
+    }
+    
+    .right-content {
+      box-sizing: border-box;
+      width: 70%;
+      display: inline-block;
+      padding-left: 40px;
+      padding-right: 40px;
+
+    }
+    
+    footer {
+      box-sizing: border-box;
+      width: 80%;
+      margin: 0 auto;
+      background-color: lightgray;
+      border: solid gray 3px;
+      padding: 10px;
+    }
+    
+    footer ul {
+      display: inline-block;
+      float: right;
+    }
+    
+    footer li {
+      display: inline-block;
+      padding: 10px 15px;
+    }
+    
+    footer::after {
+      clear: both;
+      display: block;
+      content: "";
+    }
+    </style>
+    
+  </head>
+ 
+  <div class='top-bar'>
+    <div class='top-bar-container'>
+      <div class="item">App Academy Students</div>
+      <ul>
+        <li>Home</li>
+        <li class="notification">Notifications 
+          <ul>
+            <li>Someone liked your picture </li>
+            <li>You heard the howling of untold eternities</li>
+            <li>The void stares back.... stop looking!</li>
+          </ul> 
+          </li>
+          <li>Messages</li>                  
+        <li>Settings</li>
+      </ul>
+    </div>
+  </div>
+    
+  <body>
+    <div class='center-container'>
+      <div class='left-sidebar'>
+        <h2>Sidebar</h2>
+        <p>Namnahn' 'fhalma ebunmanyth f'uln uaaah Cthulhu Tsathoggua shtunggli nog, hlirgh cshagg phlegethoth nnngof'nn hupadgh phlegethnyth ph'zhro, f''fhalma hai syha'h s'uhn naTsathoggua ooboshu Nyarlathotep. Culn vulgtmnyth f'Hastur f'athg csgn'wahl tharanak hafh'drn Cthulhunyth fm'latgh orr'e, fm'latgh orr'e ch' ngnw gof'nn y-mg athg fhtagn, ebunma hlirgh ngYoggoth nilgh'ri nw r'luh uaaah zhro. F'hafh'drn 'ai fm'latgh vulgtlagln ftaghuagl mg nnnfhtagn syha'h, ch' gotha r'luh nnnshogg 'fhalma ph'uln, f'ilyaa n'ghft hlirgh vulgtm y-sll'ha kn'a. Tharanak llll y-ee gof'nn cDagon hrii ftaghu ph'R'lyeh y-nw, nilgh'ri s'uhn Shub-Niggurath gotha y-ilyaa fhtagn gotha f'Shub-Niggurath nglui, ph'sll'ha ngee Shub-Niggurath uaaah nglui Azathoth uaaah.</p>
+      </div>
+      <div class='right-content'>
+        <h2>Content</h2>
+        <p>NgYoggoth gothaoth grah'n gof'nn hupadgh chtenff sll'ha f'shagg ftaghu ph'Tsathoggua Cthulhu n'ghft gotha throd phlegeth ch', sgn'wahl y'hah uaaah ron shoggnyth ehye vulgtlagln ee naflilyaa ngluinyth ngthrod nafm'latgh ah nilgh'rior. 'bthnk hafh'drnagl ep hupadgh cR'lyeh 'ai n'gha Chaugnar Faugnog shtunggli y-ah nasll'ha ebunma r'luh li'hee c'bthnk hupadgh Nyarlathotep, bug shugg Cthulhu uln lw'nafh nnntharanak nashogg lw'nafh Shub-Niggurath shtunggli y-ehye y'hahoth goka Hastur. Athgor ngbug uh'e ehyenyth vulgtm shaggor goka llll h'kn'a geb kadishtuog shogg, f'sgn'wahl lloig csyha'h Tsathoggua hai nglui haioth h'nw naooboshu gotha hupadgh, ron ebunma naflhlirgh orr'e hrii r'luh vulgtm kadishtu 'bthnk nabug.</p>
+      </div>
+    </div>
+
+  </body>
+ <footer>
+   <div class="item">@2013 App Academy.</div>
+   <ul>
+     <li>Home</li>
+     <li>About</li>
+     <li>Privacy</li>
+   </ul>
+ </footer>
+</html>

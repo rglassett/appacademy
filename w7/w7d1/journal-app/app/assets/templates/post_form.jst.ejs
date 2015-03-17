@@ -1,0 +1,24 @@
+<h1>New Post</h1>
+<% if (errors) { %>
+  <ul>
+    <% errors.forEach(function(error) { %>
+      <li><%= error %></li>
+    <% })%>
+  </ul>
+<% } %>
+
+<form class="post_form">
+  <label for="post_title">Post Title</label>
+  <input type="text"
+         name="post[title]"
+         id="post_title"
+         value="<%= post.title %>">
+  
+  <label for="post_body">Post Body</label>
+  <textarea name="post[body]" cols="60" rows="20"
+  id="post_body"><% if (post.body) { %> <%= post.body %> <% } %></textarea>
+    
+  <input type="submit" value="Submit">
+</form>
+
+<!-- <a href="#/">Back to Index</a> -->

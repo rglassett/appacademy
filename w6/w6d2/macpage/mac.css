@@ -1,0 +1,113 @@
+.clearfix {
+  clear: both;
+  content: '';
+  display: block;
+}
+* {
+/*  border: thin solid blue;*/
+}
+
+header {
+  float: left;
+  background-color: #606060;
+  box-sizing: border-box;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  height: 46px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+header img {
+  width: 24px;
+  height: 24px;
+  left: 50%;
+}
+
+header ul {
+  display: table;
+  height: 46px;
+  margin: 0;
+  left: 0px;
+  top: 0px;
+  padding: 0;
+  position: absolute;
+  width: 100%;
+}
+
+header ul li {
+  display: table-cell;
+  height: 46px;
+  margin-left: 0;
+  width: 10%;
+  line-height: 46px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+body {
+  margin-top: 60px;
+}
+
+.product-menu {
+  font-family:'Roboto', sans-serif;
+  border-bottom: solid lightslategray 1px;
+  height: 50px;
+}
+
+.product-menu h2 {
+  float: left;
+  margin-top: 10px;
+  padding: 0;
+}
+
+.product-menu ul {
+  float: right;
+}
+
+.product-menu ul li {
+  float: left;
+  font-size: 11px;
+  margin: 0 17px;
+  color: gray;
+}
+.section {
+  display: block;
+  padding-top: 20px;
+  margin: 0;
+  height: 250px;
+  width: 100%;
+}
+
+.left {
+ float: left;
+  width: 209px;
+  margin-right: 40px;
+}
+
+.middle {
+ float: left;
+  width: 366px;
+  margin-right: 40px;
+}
+
+.middle p, .right p {
+  display:block;
+  text-align: center;
+}
+
+.right {
+ float: left;
+  width: 357px;
+  margin-right: 5px 40px;
+}
+
+.section img {
+  
+  margin: 0 auto;
+
+  display: block;
+}
+
