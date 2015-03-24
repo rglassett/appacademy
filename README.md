@@ -52,8 +52,8 @@ Work I completed during the August 2014 cohort of [App Academy][app-academy].
 ### Astral.ly ( [code][astrally] )
 ### AJAX Twitter ( [code][ajax-twitter] )
 
-[asteroids-js]: http://github.com/rglassett/asteroids/
-[asteroids-js-demo]: http://rglassett.github.io/asteroids/
+[asteroids-js]: http://github.com/rglassett/asteroids-js/
+[asteroids-js-demo]: http://rglassett.github.io/asteroids-js/
 [astrally]: w6/w6d3/astrally/
 [ajax-twitter]: w6/w6d5/AjaxTwitter/
 
