@@ -1,26 +1,18 @@
 def num_to_s(num, base)
-  digits = []
-  dictionary = {10 => "A", 11 => "B", 12 => "C", 13 => "D", 14 => "E", 15 => "F" }
-  var = 1
-  while var < num
-    a = (num / var) % base
-    if a >= 10
-      digits << dictionary[a]
-    else
-      digits << a
-    end
-    var *= base
+  digits, place = [], 1
+  hex_digits = (0..10).to_a + %w(A B C D E F)
+
+  while place < num
+    next_val = (num / place) % base
+    digits << hex_digits[next_val]
+    place *= base
   end
+
   digits.join.reverse
 end
 
-def caeser(string, shift)
+def caesar(string, shift)
   alphabet = ("a".."z").to_a
-  cipher = Array.new(alphabet)
-  shift.times do
-    cipher << cipher.shift
-  end
+  cipher = alphabet.rotate(shift)
   string.tr(alphabet.join, cipher.join)
 end
-
-puts caeser("ryan",3)

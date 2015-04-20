@@ -1,39 +1,32 @@
 class MyHashSet
-  
   def initialize
-    @store = {}
+    @store = Hash.new(false)
   end
-  
+
   def insert(el)
     @store[el] = true
   end
-  
+
   def include?(el)
-    @store[el] == nil ? false : true
+    @store.has_key?(el)
   end
-  
+
   def delete(el)
-    included = self.include?(el)
-    @store.delete(el) if included
-    included
+    @store.delete(el)
   end
-  
-  def to_s
-    @store.to_s
-  end
-  
+
   def to_a
     @store.keys
   end
-  
+
   def union(set2)
     result = MyHashSet.new
     (set2.to_a + self.to_a).each do |key|
       result.insert(key)
     end
-    result   
+    result
   end
-  
+
   def intersect(set2)
     result = MyHashSet.new
     self.to_a.each do |key|
@@ -41,7 +34,7 @@ class MyHashSet
     end
     result
   end
-  
+
   def minus(set2)
     result = MyHashSet.new
     self.to_a.each do |key|
@@ -49,17 +42,4 @@ class MyHashSet
     end
     result
   end
-   
 end
-
-a = MyHashSet.new
-b = MyHashSet.new
-
-a.insert('stuff')
-a.insert('things')
-
-b.insert("purple")
-b.insert("yellow")
-b.insert("things")
-
-puts a.minus(b)

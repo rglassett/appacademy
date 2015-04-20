@@ -15,16 +15,12 @@ end
 def median(array)
   array = array.sort
   if array.length.odd?
-    return array[array.length/2]
+    array[array.length / 2]
   else
-    return (array[array.length/2] + array[array.length/2-1]) / 2.0
-  end    
+    (array[array.length / 2] + array[array.length / 2 - 1]) / 2.0
+  end
 end
 
 def concatenate(array)
   array.inject { |memo, string| memo + string }
 end
-
-a = ["one", "two", "three"]
-
-puts concatenate(a)
