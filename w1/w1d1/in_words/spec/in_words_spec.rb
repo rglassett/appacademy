@@ -18,10 +18,10 @@
 # The number 4 is of class `FixNum` and it has methods on it.  Your challenge is to add an `in_words` method to `FixNum`.
 #
 
+require "rspec"
 require "in_words"
 
 describe Fixnum do
-
   it "reads 0 to 9" do
     0.in_words.should == 'zero'
     1.in_words.should == 'one'
@@ -98,5 +98,4 @@ describe Fixnum do
     1_000_000_000_001.in_words.should == 'one trillion one'
     1_888_259_040_036.in_words.should == 'one trillion eight hundred eighty eight billion two hundred fifty nine million forty thousand thirty six'
   end
-
 end
