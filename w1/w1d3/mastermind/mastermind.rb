@@ -1,85 +1,85 @@
 class Code
-  attr_reader :colors
-  attr_accessor :user_guess, :sequence
-  
-  def initialize
-    @sequence = []
-    @colors = ["R", "G", "B", "Y", "O", "P"]
-    @user_guess = []
+  attr_reader :sequence
+
+  COLORS = %w(R G B Y O P)
+
+  def self.random
+    sequence = []
+    4.times { sequence << COLORS.sample }
+    self.new(sequence)
   end
-  
-  def randomize
-    self.sequence = []
-    4.times do
-      self.sequence << colors.sample
-    end
+
+  def self.valid?(sequence)
+    sequence.length == 4 && sequence.all? { |el| COLORS.include?(el) }
   end
-  
-  def feedback
-    puts "You got #{exact_matches} guesses exactly right (black ball)."
-    puts "You got #{near_matches} almost right (white ball)."
+
+  def initialize(sequence = [])
+    @sequence = sequence
   end
-  
-  def exact_matches
-    0.tap do |counter|
-      @user_guess.each_index do |el|
-        counter += 1 if @user_guess[el] == sequence[el]
-      end
-    end
+
+  def [](i)
+    sequence[i]
   end
-  
-  def near_matches
+
+  def count(el)
+    sequence.count(el)
+  end
+
+  def exact_matches(other_code)
     counter = 0
-    @user_guess.uniq.each do |el|
-      upper_bound = sequence.count(el)
-      color_count = @user_guess.count(el)
-      counter += [color_count, upper_bound].sort[0]
+    sequence.each_index do |i|
+      counter += 1 if self[i] == other_code[i]
     end
-    counter - exact_matches
+    counter
   end
-  
-  def won?
-    exact_matches == 4
+
+  def near_matches(other_code)
+    counter = 0
+    other_code.sequence.uniq.each do |el|
+      counter += [self.count(el), other_code.count(el)].min
+    end
+    counter - exact_matches(other_code)
+  end
+
+  def ==(other_code)
+    return false unless other_code.is_a?(self.class)
+    self.sequence == other_code.sequence
   end
 end
 
 
 class Game
-  attr_accessor :turns
   attr_reader :code
-  
-  def initialize
-    @turns = 10
-    @code = Code.new
-    @code.randomize
+
+  def initialize(turns = 10)
+    @turns = turns
+    @code = Code.random
   end
-  
-  def get_input
-    while true
-      puts "Enter your guess (4 letters):"
-      user_input = gets.chomp.upcase.split(//)
-      if user_input.length != 4 ||
-        user_input.any? { |color| !@code.colors.include?(color)}
-        puts "Invalid guess."
-      else
-        @code.user_guess = user_input
-        break
-      end
+
+  def get_code
+    sequence = []
+    until Code.valid?(sequence)
+      puts "Enter your guess (4 letters, no spaces):"
+      puts "Valid colors are #{Code::COLORS}"
+      sequence = gets.chomp.upcase.split(//)
     end
+    Code.new(sequence)
   end
-  
-  def print_output
-    @code.feedback
+
+  def feedback(guess)
+    puts "You got #{@code.exact_matches(guess)} guesses exactly right (black ball)."
+    puts "You got #{@code.near_matches(guess)} almost right (white ball)."
   end
-  
+
   def play
-    until @turns == 0 || @code.won?
-      puts "Turns remaining: #{turns}"
-      get_input
-      print_output
+    until @turns == 0 || @code == @guess
+      puts "Turns remaining: #{@turns}"
+      @guess = get_code
+      feedback(@guess)
       @turns -= 1
     end
-    if @code.won?
+
+    if @code == @guess
       puts "Congratulations, you win!"
     else
       puts "Sorry, maybe next time."
@@ -88,6 +88,5 @@ class Game
 end
 
 if __FILE__ == $PROGRAM_NAME
-  game = Game.new
-  game.play
+  Game.new.play
 end
