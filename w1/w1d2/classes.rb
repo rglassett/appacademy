@@ -1,45 +1,43 @@
 class Student
-  attr_accessor :first, :last, :courses
+  attr_reader :first, :last, :courses
+
   def initialize(first, last)
     @first = first
     @last = last
     @courses = []
   end
-  
-  def enroll(course)
-    courses << course
-    course.add_student(self)
-  end
-  
+
   def course_load
-    hash = Hash.new(0)
-    
+    hash = Hash.new { |h, k| h[k] = 0 }
+
     courses.each do |course|
       hash[course.department] += course.credits
     end
-    
+
     hash
   end
 
-  def has_conflict?
-    conflict = false
-    courses.each do |course1|
-      courses.each do |course2|
-        if course1 != course2 && course1.conflicts_with?(course2)
-          conflict = true
-          return true
-        end
-      end
+  def enroll(course)
+    if has_conflict?(course)
+      raise "Can't enroll in a course that would create a conflict!"
     end
-    conflict
+
+    courses << course
+    course.students << self
   end
 
+  def has_conflict?(course)
+    courses.any? { |enrolled_course| enrolled_course.conflicts_with?(course) }
+  end
+
+  def name
+    "#{first} #{last}"
+  end
 end
 
 class Course
-  
-  attr_accessor :name, :department, :credits, :students, :days, :time
-  
+  attr_reader :name, :department, :credits, :students, :days, :time
+
   def initialize(name, department, credits, days, time)
     @name = name
     @department = department
@@ -48,30 +46,12 @@ class Course
     @days = days
     @time = time
   end
-  
+
   def add_student(student)
-    @students << student
+    student.enroll(self)
   end
-  
+
   def conflicts_with?(course)
-    if time == course.time && days.any? { |day| course.days.include?(day) }
-      true
-    else
-      false
-    end
+    time == course.time && days.any? { |day| course.days.include?(day) }
   end
-  
 end
-
-s = Student.new("Dude", "Mang")
-
-c = Course.new("Basket-Weaving", "Arts", 2, [:mon, :tue, :wed], 1)
-
-d = Course.new("Monkey-Patching", "Computer Science", 3, [:wed, :thu, :fri], 1)
-s.enroll(c)
-p s.course_load
-
-s.enroll(d)
-p s.course_load
-
-p s.has_conflict?
